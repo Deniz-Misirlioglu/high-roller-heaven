@@ -62,7 +62,7 @@ const Register = () => {
     console.log(pwd);
     //PLACE API STUFF HERE
     getMongoData();
-    addUserData();
+    addUserData(user, pwd);
   };
 
   const [users, setUsers] = useState([]);
@@ -73,11 +73,11 @@ const Register = () => {
       .catch((err) => console.log(err));
   };
 
-  const addUserData = async () => {
+  const addUserData = async (username, password) => {
     try {
       const userData = {
-        username: "Hello123#",
-        password: "HIHI123#",
+        username: username,
+        password: password,
       };
 
       const response = await axios.post(
