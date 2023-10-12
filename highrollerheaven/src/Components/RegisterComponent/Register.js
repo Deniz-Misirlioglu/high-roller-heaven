@@ -6,6 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import bcrypt from "bcryptjs";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -75,9 +76,20 @@ const Register = () => {
 
   const addUserData = async (username, password) => {
     try {
+      const saltRounds = 10;
+      // Hash the password asynchronously
+      const passwordHashed = await new Promise((resolve, reject) => {
+        bcrypt.hash(password, saltRounds, (err, hash) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(hash);
+          }
+        });
+      });
       const userData = {
         username: username,
-        password: password,
+        password: passwordHashed,
       };
 
       const response = await axios.post(
