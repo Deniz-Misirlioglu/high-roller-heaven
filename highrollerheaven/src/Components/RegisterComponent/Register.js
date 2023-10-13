@@ -31,13 +31,26 @@ const Register = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const [users, setUsers] = useState([]);
+
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
   useEffect(() => {
-    setValidName(USER_REGEX.test(user));
-  }, [user]);
+    console.log(users);
+    const isUsernameTaken = users.some(
+      (existingUser) => existingUser.username === user
+    );
+    console.log(isUsernameTaken + "USERNAMETAKE?");
+    if (isUsernameTaken) {
+      setErrMsg("Username already taken.");
+      setValidName(false);
+    } else {
+      setErrMsg(""); // Clear the error message if the username is not taken
+      setValidName(USER_REGEX.test(user));
+    }
+  }, [user, users]);
 
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
@@ -47,6 +60,25 @@ const Register = () => {
   useEffect(() => {
     setErrMsg("");
   }, [user, pwd, matchPwd]);
+
+  useEffect(() => {
+    console.log("Users after state update: " + users);
+  }, [users]);
+
+  const getMongoData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/getCustomers");
+      // Assuming the response data is an array of users
+      setUsers(response.data);
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getMongoData();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,16 +94,7 @@ const Register = () => {
     console.log(user);
     console.log(pwd);
     //PLACE API STUFF HERE
-    getMongoData();
-    addUserData(user, pwd);
-  };
-
-  const [users, setUsers] = useState([]);
-  const getMongoData = async () => {
-    axios
-      .get("http://localhost:3001/getCustomers")
-      .then((users) => console.log(users.data))
-      .catch((err) => console.log(err));
+    //addUserData(user, pwd);
   };
 
   const addUserData = async (username, password) => {
