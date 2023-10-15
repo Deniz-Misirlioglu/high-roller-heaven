@@ -18,6 +18,7 @@ const Register = () => {
 
   const [user, setUser] = useState("");
   const [validName, setValidName] = useState(false);
+  const [nonRepeatedName, setNonRepeatedName] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
 
   const [pwd, setPwd] = useState("");
@@ -46,9 +47,11 @@ const Register = () => {
     if (isUsernameTaken) {
       setErrMsg("Username already taken.");
       setValidName(false);
+      setNonRepeatedName(false);
     } else {
       setErrMsg(""); // Clear the error message if the username is not taken
       setValidName(USER_REGEX.test(user));
+      setNonRepeatedName(true);
     }
   }, [user, users]);
 
@@ -94,7 +97,7 @@ const Register = () => {
     console.log(user);
     console.log(pwd);
     //PLACE API STUFF HERE
-    //addUserData(user, pwd);
+    addUserData(user, pwd);
   };
 
   const addUserData = async (username, password) => {
@@ -177,7 +180,7 @@ const Register = () => {
                     <p
                       id="uidnote"
                       className={
-                        userFocus && user && !validName
+                        userFocus && user && !validName && nonRepeatedName
                           ? "instructions"
                           : "offscreen"
                       }
@@ -188,6 +191,20 @@ const Register = () => {
                       Must begin with a letter.
                       <br />
                       Letters, numbers, underscores, hyphens allowed.
+
+                    </p>
+
+                    <p
+                      id="uidnote"
+                      className={
+                        userFocus && user && !validName && !nonRepeatedName
+                          ? "instructions"
+                          : "offscreen"
+                      }
+                    >
+                      <FontAwesomeIcon icon={faInfoCircle} />
+                      Name Already taken, Please choose another
+
                     </p>
 
                     <label htmlFor="password">
