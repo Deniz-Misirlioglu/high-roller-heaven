@@ -104,15 +104,7 @@ const Register = () => {
     try {
       const saltRounds = 10;
       // Hash the password asynchronously
-      const passwordHashed = await new Promise((resolve, reject) => {
-        bcrypt.hash(password, saltRounds, (err, hash) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(hash);
-          }
-        });
-      });
+      const passwordHashed = await bcrypt.hash(pwd, saltRounds);
       const userData = {
         username: username,
         password: passwordHashed,
@@ -191,7 +183,6 @@ const Register = () => {
                       Must begin with a letter.
                       <br />
                       Letters, numbers, underscores, hyphens allowed.
-
                     </p>
 
                     <p
@@ -204,7 +195,6 @@ const Register = () => {
                     >
                       <FontAwesomeIcon icon={faInfoCircle} />
                       Name Already taken, Please choose another
-
                     </p>
 
                     <label htmlFor="password">
