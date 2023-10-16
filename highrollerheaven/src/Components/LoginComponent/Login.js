@@ -2,9 +2,10 @@ import { useRef, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AuthorizedUserContext from "../Authentication/AuthorizeUser";
 import bcrypt from "bcryptjs";
-
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Register from "../RegisterComponent/Register";
 const Login = () => {
-  const { setAuthorization } = useContext(AuthorizedUserContext);
+  const { setAuth } = useContext(AuthorizedUserContext);
   const userRef = useRef();
   const errRef = useRef();
 
@@ -44,7 +45,12 @@ const Login = () => {
       console.log(pwd);
       if (foundUser) {
         const isMatch = await bcrypt.compare(pwd, foundUser.password);
-        console.log(isMatch);
+        if (isMatch) {
+          setAuth({ user, pwd });
+          setUser("");
+          setPwd("");
+          setSuccess(true);
+        }
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -96,8 +102,7 @@ const Login = () => {
             Need an Account?
             <br />
             <span className="line">
-              {/*put router link here*/}
-              <a href="#">Sign Up</a>
+              <Link to="/Register">Register</Link>
             </span>
           </p>
         </section>

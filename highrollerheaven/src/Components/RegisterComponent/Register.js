@@ -7,12 +7,15 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import bcrypt from "bcryptjs";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = "/register";
 
 const Register = () => {
+  const navigate = useNavigate();
   const userRef = useRef();
   const errRef = useRef();
 
@@ -98,13 +101,14 @@ const Register = () => {
     console.log(pwd);
     //PLACE API STUFF HERE
     addUserData(user, pwd);
+    navigate("/login");
   };
 
   const addUserData = async (username, password) => {
     try {
       const saltRounds = 10;
       // Hash the password asynchronously
-      const passwordHashed = await bcrypt.hash(pwd, saltRounds);
+      const passwordHashed = await bcrypt.hash(password, saltRounds);
       const userData = {
         username: username,
         password: passwordHashed,
@@ -126,9 +130,6 @@ const Register = () => {
       {success ? (
         <section>
           <h1>Success!</h1>
-          <p>
-            <a href="#">Sign In</a>
-          </p>
         </section>
       ) : (
         <section>
@@ -284,8 +285,7 @@ const Register = () => {
                   Already registered?
                   <br />
                   <span className="line">
-                    {/*put router link here*/}
-                    <a href="#">Sign In</a>
+                    <Link to="/login">Sign In</Link>
                   </span>
                 </p>
               </div>

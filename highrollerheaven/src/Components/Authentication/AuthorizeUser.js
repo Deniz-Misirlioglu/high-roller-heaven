@@ -3,10 +3,10 @@ import { createContext, useState } from "react";
 const AuthorizedUserContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [authorize, setAuthorize] = useState({});
+  const [authorize, setAuth] = useState({});
 
   return (
-    <AuthorizedUserContext.Provider value={{ authorize, setAuthorize }}>
+    <AuthorizedUserContext.Provider value={{ authorize, setAuth }}>
       {children}
     </AuthorizedUserContext.Provider>
   );
