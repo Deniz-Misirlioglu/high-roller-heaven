@@ -112,6 +112,7 @@ const Register = () => {
       const userData = {
         username: username,
         password: passwordHashed,
+        balance: 500,
       };
 
       const response = await axios.post(
