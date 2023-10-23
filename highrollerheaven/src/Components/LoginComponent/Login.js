@@ -4,8 +4,10 @@ import AuthorizedUserContext from "../Authentication/AuthorizeUser";
 import bcrypt from "bcryptjs";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Register from "../RegisterComponent/Register";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const { setAuth } = useContext(AuthorizedUserContext);
+  const navigate = useNavigate();
   const userRef = useRef();
   const errRef = useRef();
 
@@ -13,6 +15,7 @@ const Login = () => {
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  var userId = "";
 
   useEffect(() => {
     userRef.current.focus();
@@ -50,6 +53,8 @@ const Login = () => {
           setUser("");
           setPwd("");
           setSuccess(true);
+          userId = foundUser._id;
+          navigate("/home", {userId: userId});
         }
       }
     } catch (error) {
