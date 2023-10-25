@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Register from "../RegisterComponent/Register";
 import { useNavigate } from "react-router-dom";
+import Home from "../HomeComponent/Home"
 const Login = () => {
   const { setAuth } = useContext(AuthorizedUserContext);
   const navigate = useNavigate();
@@ -53,8 +54,9 @@ const Login = () => {
           setUser("");
           setPwd("");
           setSuccess(true);
-          userId = foundUser._id;
-          navigate("/home", {userId: userId});
+          const userId = foundUser._id;
+          console.log(userId + "THIS IS USEER ID")
+          navigate("/home", { replace: true, state: { userAccount: userId } });
         }
       }
     } catch (error) {
