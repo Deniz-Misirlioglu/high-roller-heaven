@@ -41,8 +41,7 @@ const Home = (props) => {
         console.log("Hello");
         console.log(user);
         if (userId === user._id) {
-          console.log(`Found user with ID ${userId}: ${user.name}`);
-          return user.username;
+          return user;
         }
       }
       return [];
@@ -53,7 +52,8 @@ const Home = (props) => {
 
   return (
     <>
-      <div>{getUserData(location.state.userAccount)}</div>
+      <h1>High Roller Heaven</h1>
+      <div>Welcome {getUserData(location.state.userAccount).username}</div>
     </>
   );
 };

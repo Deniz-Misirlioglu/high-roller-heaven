@@ -5,7 +5,10 @@ import bcrypt from "bcryptjs";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Register from "../RegisterComponent/Register";
 import { useNavigate } from "react-router-dom";
-import Home from "../HomeComponent/Home"
+import Home from "../HomeComponent/Home";
+
+import "../LoginComponent/Login.css";
+
 const Login = () => {
   const { setAuth } = useContext(AuthorizedUserContext);
   const navigate = useNavigate();
