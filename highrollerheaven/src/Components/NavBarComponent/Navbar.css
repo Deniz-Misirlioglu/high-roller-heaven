@@ -16,6 +16,10 @@ html {
   box-shadow: 10px 0px 10px -10px rgba(0, 0, 0, 0.5);
   transition: width 0.3s; /* Transition effect */
   overflow: auto; /* Hide content outside of width */
+  left: 0;
+  position: fixed;
+  top: 0;
+  z-index: 1;
 }
 
 .navbar-brand {
