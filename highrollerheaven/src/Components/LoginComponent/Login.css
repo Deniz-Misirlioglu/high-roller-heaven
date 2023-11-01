@@ -22,16 +22,18 @@
 
 .login .screen {
   background: linear-gradient(90deg, #5d54a4, #7c78b8);
-  position: relative;
+  position: absolute; /* Changed from relative to absolute */
   height: 600px;
   width: 360px;
   box-shadow: 0px 0px 24px #5c5696;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust position */
 }
 
 .login .screen__content {
   z-index: 1;
   position: relative;
-  height: 100%;
 }
 
 .login form {
