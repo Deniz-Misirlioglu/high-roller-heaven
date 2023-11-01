@@ -1,4 +1,4 @@
-html {
+.login {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,21 +6,21 @@ html {
   padding: 1rem 0.5rem;
 }
 
-.login {
+.login .login {
   padding: 30px;
 }
 
-.login__field {
+.login .login__field {
   position: relative;
 }
 
-.container {
+.login .container {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.screen {
+.login .screen {
   background: linear-gradient(90deg, #5d54a4, #7c78b8);
   position: relative;
   height: 600px;
@@ -28,13 +28,13 @@ html {
   box-shadow: 0px 0px 24px #5c5696;
 }
 
-.screen__content {
+.login .screen__content {
   z-index: 1;
   position: relative;
   height: 100%;
 }
 
-form {
+.login form {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -42,22 +42,22 @@ form {
   padding-bottom: 1rem;
 }
 
-a,
-a:visited {
+.login a,
+.login a:visited {
   color: #fff;
 }
 
-input[type="text"],
-input[type="password"],
-button,
-textarea {
+.login input[type="text"],
+.login input[type="password"],
+.login button,
+.login textarea {
   font-family: "Nunito", sans-serif;
   font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
 }
 
-.instructions {
+.login .instructions {
   font-size: 0.75rem;
   border-radius: 0.5rem;
   background: #000;
@@ -67,30 +67,30 @@ textarea {
   bottom: -10px;
 }
 
-.instructions > svg {
+.login .instructions > svg {
   margin-right: 0.25rem;
 }
 
-.offscreen {
+.login .offscreen {
   position: absolute;
   left: -9999px;
 }
 
-.hide {
+.login .hide {
   display: none;
 }
 
-.valid {
+.login .valid {
   color: limegreen;
   margin-left: 0.25rem;
 }
 
-.invalid {
+.login .invalid {
   color: red;
   margin-left: 0.25rem;
 }
 
-.errmsg {
+.login .errmsg {
   background-color: lightpink;
   color: firebrick;
   font-weight: bold;
@@ -98,6 +98,6 @@ textarea {
   margin-bottom: 0.5rem;
 }
 
-.line {
+.login .line {
   display: inline-block;
 }

@@ -49,9 +49,11 @@ const Home = (props) => {
 
   return (
     <>
+      <div className="home">
       <h1>High Roller Heaven</h1>
       <div>Welcome {user.username}</div>
       <div>Your Current balance is {user.balance}</div>
+      </div>
     </>
   );
 };

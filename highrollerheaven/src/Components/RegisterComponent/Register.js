@@ -128,6 +128,7 @@ const Register = () => {
 
   return (
     <>
+    <div className="register">
       {success ? (
         <section>
           <h1>Success!</h1>
@@ -294,6 +295,7 @@ const Register = () => {
           </div>
         </section>
       )}
+      </div>
     </>
   );
 };
