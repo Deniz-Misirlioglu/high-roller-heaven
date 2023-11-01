@@ -34,8 +34,8 @@ const Home = (props) => {
     try {
       const data = mongoData;
       for (const user of data) {
-        console.log(user);
         if (userId === user._id) {
+          console.log(user);
           return user;
         }
       }

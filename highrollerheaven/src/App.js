@@ -3,6 +3,7 @@ import "./App.css";
 import Register from "./Components/RegisterComponent/Register";
 import Login from "./Components/LoginComponent/Login";
 import Home from "./Components/HomeComponent/Home";
+import Navbar from "./Components/NavBarComponent/Navbar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route exact path="/login" element={<Login />}></Route>
         <Route exact path="/" element={<Register />}></Route>
         <Route exact path="/home" element={<Home />}></Route>
+        <Route exact path="/navbar" element={<Navbar />}></Route>
       </Routes>
     </div>
   );
