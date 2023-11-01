@@ -12,8 +12,8 @@ html {
   height: 100vh;
   font-family: Arial, sans-serif;
   color: #fff;
-  padding-top: 20px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  padding-top: 0px;
+  box-shadow: 10px 0px 10px -10px rgba(0, 0, 0, 0.5);
   transition: width 0.3s; /* Transition effect */
   overflow: auto; /* Hide content outside of width */
 }
@@ -93,6 +93,7 @@ html {
   justify-content: flex-end;
   background-color: #333;
   padding: 10px 15px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5); /* Bottom shadow */
 }
 
 .top-navbar a {
