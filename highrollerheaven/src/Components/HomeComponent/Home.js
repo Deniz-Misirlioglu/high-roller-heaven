@@ -9,11 +9,9 @@ import {
   Link,
   useLocation,
 } from "react-router-dom";
-import Register from "../RegisterComponent/Register";
 
 const Home = (props) => {
   const location = useLocation();
-  console.log(location.state.userAccount);
 
   const [mongoData, setMongoData] = useState([]);
 
@@ -22,7 +20,6 @@ const Home = (props) => {
     const getMongoData = async () => {
       try {
         const response = await axios.get("http://localhost:3001/getCustomers");
-        console.log(response.data);
         setMongoData(response.data);
       } catch (err) {
         console.log(err);
@@ -35,10 +32,7 @@ const Home = (props) => {
   const getUserData = (userId) => {
     try {
       const data = mongoData;
-
-      console.log("got the mongo Data" + data);
       for (const user of data) {
-        console.log("Hello");
         console.log(user);
         if (userId === user._id) {
           return user;
@@ -50,10 +44,13 @@ const Home = (props) => {
     }
   };
 
+  const user = getUserData(location.state.userAccount);
+
   return (
     <>
       <h1>High Roller Heaven</h1>
-      <div>Welcome {getUserData(location.state.userAccount).username}</div>
+      <div>Welcome {user.username}</div>
+      <div>Your Current balance is {user.balance}</div>
     </>
   );
 };
