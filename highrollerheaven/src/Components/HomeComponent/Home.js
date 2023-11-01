@@ -9,6 +9,7 @@ import {
   Link,
   useLocation,
 } from "react-router-dom";
+import "../HomeComponent/Home.css";
 
 const Home = (props) => {
   const location = useLocation();
