@@ -8,17 +8,20 @@ html {
   margin-left: 0;
   padding-left: 0;
   background-color: #333;
-  width: 200px; /* Added width */
+  width: 200px;
+  /* Added width */
   height: 100vh;
   font-family: Arial, sans-serif;
   color: #fff;
   padding-top: 0px;
   box-shadow: 10px 0px 10px -10px rgba(0, 0, 0, 0.5);
-  transition: width 0.3s; /* Transition effect */
-  overflow: auto; /* Hide content outside of width */
+  transition: width 0.3s;
+  /* Transition effect */
+  overflow: auto;
+  /* Hide content outside of width */
   left: 0;
   position: fixed;
-  top: 0;
+  top: 5vh;
   z-index: 1;
 }
 
@@ -37,7 +40,8 @@ html {
 }
 
 .navbar-menu {
-  width: 100%; /* Change from 200px to 100% */
+  width: 100%;
+  /* Change from 200px to 100% */
   transition: width 0.3s;
   overflow: hidden;
 }
@@ -71,15 +75,21 @@ html {
   color: #fff;
   border: none;
   cursor: pointer;
-  padding: 10px; /* Adjusted padding */
-  margin: 0px; /* Adjusted margin */
+  padding: 10px;
+  /* Adjusted padding */
+  margin: 0px;
+  /* Adjusted margin */
   border-radius: 5px;
   transition: background-color 0.3s;
   position: absolute;
-  left: 0; /* Adjusted left position */
+  left: 0;
+  /* Adjusted left position */
   top: 0px;
-  box-sizing: border-box; /* Added box-sizing */
-  width: 60px; /* Set the width equal to the collapsed navbar width */
+  box-sizing: border-box;
+  /* Added box-sizing */
+  width: 60px;
+  z-index: 2;
+  /* Set the width equal to the collapsed navbar width */
 }
 
 .hamburger-btn:hover {
@@ -87,7 +97,8 @@ html {
 }
 
 .navbar.collapsed {
-  width: 60px; /* This width will only show the hamburger */
+  width: 60px;
+  /* This width will only show the hamburger */
   overflow: hidden;
   transition: width 0.3s;
 }
@@ -97,7 +108,8 @@ html {
   justify-content: flex-end;
   background-color: #333;
   padding: 10px 15px;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5); /* Bottom shadow */
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
+  /* Bottom shadow */
 }
 
 .top-navbar a {
@@ -131,20 +143,25 @@ html {
 .top-navbar a:active,
 .navbar-menu a:active {
   transform: scale(0.9);
-  transition: transform 0.1s; /* This makes the shrinking effect smoother */
+  transition: transform 0.1s;
+  /* This makes the shrinking effect smoother */
 }
 
 .navbar.collapsed .navbar-menu a span {
-  display: none; /* Hide text when navbar is collapsed */
+  display: none;
+  /* Hide text when navbar is collapsed */
 }
 
 .navbar.collapsed .navbar-menu a {
-  text-align: center; /* Changed from left to center */
+  text-align: center;
+  /* Changed from left to center */
 }
 
 .navbar.collapsed .navbar-menu a .fa {
-  display: inline-block; /* Ensure the icon is always shown */
-  margin-right: 0; /* reset margin for icons */
+  display: inline-block;
+  /* Ensure the icon is always shown */
+  margin-right: 0;
+  /* reset margin for icons */
 }
 
 .menu-list.show span {

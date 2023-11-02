@@ -19,6 +19,7 @@ function App() {
         <Route exact path="/login" element={<Login />}></Route>
         <Route exact path="/" element={<Register />}></Route>
         <Route path="/home" element={<SomePathLayout />} />
+        <Route exact path="/navbar" element={<Navbar />}></Route>
       </Routes>
     </div>
   );

@@ -4,10 +4,14 @@
   justify-content: center;
   align-items: center;
   padding: 6rem 0.5rem;
+
 }
+
+
 
 .register .login {
   padding: 30px;
+  border-radius: 25px;
 }
 
 .register .login__field {
@@ -21,14 +25,15 @@
 }
 
 .register .screen {
-  background: linear-gradient(90deg, #5d54a4, #7c78b8);
-  position: absolute; /* Changed from relative to absolute */
+  background: linear-gradient(62deg, #3d6287 0%, #3c6397 100%);
+  position: absolute;
   height: 600px;
   width: 360px;
   box-shadow: 0px 0px 24px #5c5696;
-  top: 50%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Adjust position */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 25px;
 }
 
 .register .screen__content {
@@ -70,7 +75,7 @@
   bottom: -10px;
 }
 
-.register .instructions > svg {
+.register .instructions>svg {
   margin-right: 0.25rem;
 }
 
