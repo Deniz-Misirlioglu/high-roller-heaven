@@ -34,8 +34,7 @@ app.post("/postCustomers/:userId", async (req, res) => {
     const user = await UserModel.findById(userId);
 
     const amount = postData.amount;
-
-    console.log(amount)
+    const date = postData.date;
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
@@ -44,13 +43,13 @@ app.post("/postCustomers/:userId", async (req, res) => {
       content: postData.content,
     };
     user.balance += amount;
+    user.refillBalanceTime = date;
     user.posts.push(newPost);
 
     await user.save();
 
     res.status(201).json(newPost);
 
-    console.log("Making it here 2")
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while creating the post.' });
   }
