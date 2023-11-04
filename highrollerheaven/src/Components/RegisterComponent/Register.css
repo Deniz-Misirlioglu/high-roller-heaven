@@ -1,40 +1,48 @@
-html {
+.register {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem 0.5rem;
+  padding: 6rem 0.5rem;
+
 }
 
-.login {
+
+
+.register .login {
   padding: 30px;
+  border-radius: 25px;
 }
 
-.login__field {
+.register .login__field {
   position: relative;
 }
 
-.container {
+.register .container {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.screen {
-  background: linear-gradient(90deg, #5d54a4, #7c78b8);
-  position: relative;
+.register .screen {
+  background: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+  position: absolute;
   height: 600px;
   width: 360px;
   box-shadow: 0px 0px 24px #5c5696;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
 }
 
-.screen__content {
+.register .screen__content {
   z-index: 1;
   position: relative;
   height: 100%;
 }
 
-form {
+.register form {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -42,22 +50,22 @@ form {
   padding-bottom: 1rem;
 }
 
-a,
-a:visited {
+.register a,
+.register a:visited {
   color: #fff;
 }
 
-input[type="text"],
-input[type="password"],
-button,
-textarea {
+.register input[type="text"],
+.register input[type="password"],
+.register button,
+.register textarea {
   font-family: "Nunito", sans-serif;
   font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
 }
 
-.instructions {
+.register .instructions {
   font-size: 0.75rem;
   border-radius: 0.5rem;
   background: #000;
@@ -67,30 +75,30 @@ textarea {
   bottom: -10px;
 }
 
-.instructions > svg {
+.register .instructions>svg {
   margin-right: 0.25rem;
 }
 
-.offscreen {
+.register .offscreen {
   position: absolute;
   left: -9999px;
 }
 
-.hide {
+.register .hide {
   display: none;
 }
 
-.valid {
+.register .valid {
   color: limegreen;
   margin-left: 0.25rem;
 }
 
-.invalid {
+.register .invalid {
   color: red;
   margin-left: 0.25rem;
 }
 
-.errmsg {
+.register .errmsg {
   background-color: lightpink;
   color: firebrick;
   font-weight: bold;
@@ -98,6 +106,6 @@ textarea {
   margin-bottom: 0.5rem;
 }
 
-.line {
+.register .line {
   display: inline-block;
 }

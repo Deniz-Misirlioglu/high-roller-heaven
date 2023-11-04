@@ -5,8 +5,12 @@ html {
   font-family: "Kanit", monospace;
   font-size: 22px;
   color: #000000;
+  height: 100%;
+
 }
 
 body {
-  background: linear-gradient(90deg, #c7c5f4, #776bcc);
+  background-color: #000000;
+  background-image: linear-gradient(315deg, #3a3333 0%, #7f8c8d 74%);
+
 }

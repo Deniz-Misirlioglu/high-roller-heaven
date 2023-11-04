@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import "../LoginComponent/Login.module.css";
+import "../LoginComponent/Login.css";
 
 const Login = () => {
   const { setAuth } = useContext(AuthorizedUserContext);
@@ -66,55 +66,65 @@ const Login = () => {
   };
   return (
     <>
-      {success ? (
-        <section>
-          <h1>You are logged in!</h1>
-          <br />
-          <p>
-            <a href="#">Go to Home</a>
-          </p>
-        </section>
-      ) : (
-        <section>
-          <p
-            ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errMsg}
-          </p>
-          <h1>Sign In</h1>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
-              required
-            />
-
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-            />
-            <button>Sign In</button>
-          </form>
-          <p>
-            Need an Account?
+      <div className="login">
+        {success ? (
+          <section>
+            <h1>You are logged in!</h1>
             <br />
-            <span className="line">
-              <Link to="/Register">Register</Link>
-            </span>
-          </p>
-        </section>
-      )}
+            <p>
+              <a href="#">Go to Home</a>
+            </p>
+          </section>
+        ) : (
+          <section>
+            <div className="container">
+              <div className="screen">
+                <div className="screen__content">
+                  <p
+                    ref={errRef}
+                    className={errMsg ? "errmsg" : "offscreen"}
+                    aria-live="assertive"
+                  >
+                    {errMsg}
+                  </p>
+                  <h1>Sign In</h1>
+                  <form onSubmit={handleSubmit} className="login">
+                    <div className="login__field">
+                      <label htmlFor="username">Username:</label>
+                      <input
+                        type="text"
+                        id="username"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setUser(e.target.value)}
+                        value={user}
+                        required
+                      />
+
+                      <label htmlFor="password">Password:</label>
+                      <input
+                        type="password"
+                        id="password"
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={pwd}
+                        required
+                      />
+                      <button>Sign In</button>
+                    </div>
+                  </form>
+                  <p>
+                    Need an Account?
+                    <br />
+                    <span className="line">
+                      <Link to="/Register">Register</Link>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+      </div>
     </>
   );
 };

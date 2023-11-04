@@ -12,7 +12,9 @@ import {
 import "../HomeComponent/Home.css";
 
 const Home = (props) => {
+
   const location = useLocation();
+
 
   const [mongoData, setMongoData] = useState([]);
 
@@ -45,13 +47,40 @@ const Home = (props) => {
     }
   };
 
+
   const user = getUserData(location.state.userAccount);
+
+  const refillUserBalance = async (user) => {
+    // Check conditions before refilling the balance
+    console.log("User balance has been refilled:", user.balance);
+
+    // Create a post with the updated balance
+    const post = {
+      content: `User balance has been refilled to ${user.balance}`,
+      amount: 50
+    };
+
+    const response = await axios.post(
+      "http://localhost:3001/postCustomers/" + user._id,
+      post,
+    );
+
+  };
+
+
 
   return (
     <>
-      <h1>High Roller Heaven</h1>
-      <div>Welcome {user.username}</div>
-      <div>Your Current balance is {user.balance}</div>
+      <div className="home">
+        <h1>High Roller Heaven</h1>
+
+        <button
+          onClick={() => refillUserBalance(user)}>
+          Refill Balance
+        </button>
+        <div>Welcome {user.username}</div>
+        <div>Your Current balance is {user.balance}</div>
+      </div>
     </>
   );
 };
