@@ -10,7 +10,7 @@ const Home = (props) => {
   const [user, setUser] = useState(null);
   const [refillBalanceTime, setRefillBalanceTime] = useState(0);
   const [isRefilled, setIsRefilled] = useState(false);
-  const [allowedToRefill, setAllowedToRefill] = useState(false);
+  const [allowedToRefill, setAllowedToRefill] = useState(true);
   const [timer, setTimer] = useState("00:00");
 
   useEffect(() => {
@@ -35,34 +35,29 @@ const Home = (props) => {
   }, [mongoData, location.state.userAccount]);
 
   useEffect(() => {
-    if (user) {
-      const date = Date.now();
-      setRefillBalanceTime(user.refillBalanceTime);
-      console.log(user.refillBalanceTime);
-      if (user.refillBalanceTime <= date - 1800000 && !isRefilled)
-        setAllowedToRefill(true);
-    }
-  }, [user]);
-
-  useEffect(() => {
     const timerInterval = setInterval(() => {
       if (user) {
+        const date = Date.now();
         const refillTime = user.refillBalanceTime;
+        console.log(user.refillBalanceTime);
         const currentTime = Date.now();
-        const timeRemaining = Math.max(0, 1800000 - (currentTime - refillTime));
+        const timeRemaining = Math.max(0, 60000 - (currentTime - refillTime));
         const minutes = Math.floor(timeRemaining / 60000);
         const seconds = ((timeRemaining % 60000) / 1000).toFixed(0);
 
         setTimer(`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`);
+        if (timeRemaining === 0) {
+          setAllowedToRefill(true);
+          setIsRefilled(false);
+        }
       }
     }, 1000);
     return () => clearInterval(timerInterval);
   }, [user]);
 
   const refillUserBalance = async () => {
-    console.log("Hello");
     const date = Date.now();
-    if (user.refillBalanceTime <= date - 1800000 && !isRefilled) {
+    if (user.refillBalanceTime <= date - 60000 && !isRefilled) {
       setIsRefilled(true);
       console.log("DATE" + date);
       console.log("User balance has been refilled:", user.balance);
@@ -79,7 +74,11 @@ const Home = (props) => {
       );
 
       if (response.status === 201) {
-        setUser({ ...user, balance: user.balance + 50 });
+        setUser({
+          ...user,
+          balance: user.balance + 50,
+          refillBalanceTime: date, // Update the user's refillBalanceTime
+        });
         setAllowedToRefill(false);
       }
     } else {
