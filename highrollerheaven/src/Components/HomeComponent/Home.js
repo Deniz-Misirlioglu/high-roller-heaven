@@ -94,7 +94,7 @@ const Home = (props) => {
         </div>
         {user && (
           <>
-            <div>Welcome {user.username + allowedToRefill}</div>
+            <div>Welcome {user.username}</div>
             <div>Your Current balance is {user.balance}</div>
 
             <button
