@@ -39,11 +39,11 @@ const Home = (props) => {
   }, [user]);
 
   const refillUserBalance = async () => {
-    console.log(user.refillBalanceTime)
+    console.log(user.refillBalanceTime);
     const date = Date.now();
     if (user.refillBalanceTime <= date - 7200000 && !isRefilled) {
       setIsRefilled(true);
-      console.log("DATE" + date)
+      console.log("DATE" + date);
       console.log("User balance has been refilled:", user.balance);
 
       const post = {
@@ -60,9 +60,8 @@ const Home = (props) => {
       if (response.status === 201) {
         setUser({ ...user, balance: user.balance + 50 });
       }
-    }
-    else {
-      alert("Can only refil Balance every 2 hours")
+    } else {
+      alert("Can only refil Balance every 2 hours");
     }
   };
 
@@ -71,12 +70,14 @@ const Home = (props) => {
       <div className="home">
         <div className="vertical">
           <h1 className="title">High Roller Heaven</h1>
-          <button className="button-85" onClick={refillUserBalance}>Refill Balance</button>
         </div>
         {user && (
           <>
             <div>Welcome {user.username}</div>
             <div>Your Current balance is {user.balance}</div>
+            <button className="button-85" onClick={refillUserBalance}>
+              Refill Balance
+            </button>
           </>
         )}
       </div>
