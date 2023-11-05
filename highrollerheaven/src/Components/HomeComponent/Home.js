@@ -10,6 +10,8 @@ const Home = (props) => {
   const [user, setUser] = useState(null);
   const [refillBalanceTime, setRefillBalanceTime] = useState(0);
   const [isRefilled, setIsRefilled] = useState(false);
+  const [allowedToRefill, setAllowedToRefill] = useState(false);
+  const [timer, setTimer] = useState("00:00");
 
   useEffect(() => {
     const getMongoData = async () => {
@@ -34,14 +36,33 @@ const Home = (props) => {
 
   useEffect(() => {
     if (user) {
+      const date = Date.now();
       setRefillBalanceTime(user.refillBalanceTime);
+      console.log(user.refillBalanceTime);
+      if (user.refillBalanceTime <= date - 1800000 && !isRefilled)
+        setAllowedToRefill(true);
     }
   }, [user]);
 
+  useEffect(() => {
+    const timerInterval = setInterval(() => {
+      if (user) {
+        const refillTime = user.refillBalanceTime;
+        const currentTime = Date.now();
+        const timeRemaining = Math.max(0, 1800000 - (currentTime - refillTime));
+        const minutes = Math.floor(timeRemaining / 60000);
+        const seconds = ((timeRemaining % 60000) / 1000).toFixed(0);
+
+        setTimer(`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`);
+      }
+    }, 1000);
+    return () => clearInterval(timerInterval);
+  }, [user]);
+
   const refillUserBalance = async () => {
-    console.log(user.refillBalanceTime);
+    console.log("Hello");
     const date = Date.now();
-    if (user.refillBalanceTime <= date - 7200000 && !isRefilled) {
+    if (user.refillBalanceTime <= date - 1800000 && !isRefilled) {
       setIsRefilled(true);
       console.log("DATE" + date);
       console.log("User balance has been refilled:", user.balance);
@@ -59,9 +80,10 @@ const Home = (props) => {
 
       if (response.status === 201) {
         setUser({ ...user, balance: user.balance + 50 });
+        setAllowedToRefill(false);
       }
     } else {
-      alert("Can only refil Balance every 2 hours");
+      alert("Can only refill balance every 30 Minutes");
     }
   };
 
@@ -73,10 +95,17 @@ const Home = (props) => {
         </div>
         {user && (
           <>
-            <div>Welcome {user.username}</div>
+            <div>Welcome {user.username + allowedToRefill}</div>
             <div>Your Current balance is {user.balance}</div>
-            <button className="button-85" onClick={refillUserBalance}>
-              Refill Balance
+
+            <button
+              className={`button-85 ${
+                !allowedToRefill ? "disabled-button" : ""
+              }`}
+              onClick={refillUserBalance}
+              disabled={!allowedToRefill}
+            >
+              {allowedToRefill ? "Refill Balance" : timer + " To Refill"}
             </button>
           </>
         )}

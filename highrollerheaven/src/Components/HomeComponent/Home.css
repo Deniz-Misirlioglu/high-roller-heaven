@@ -87,3 +87,10 @@
   padding: 15px;
   animation: borderFade 8s infinite;
 }
+
+.disabled-button {
+  background-color: #ccc; /* Grey background color */
+  color: #666; /* Grey text color */
+  cursor: not-allowed; /* Show a "not-allowed" cursor on hover */
+  pointer-events: none; /* Disable pointer events (clicks) */
+}
