@@ -4,6 +4,7 @@ import Register from "./Components/RegisterComponent/Register";
 import Login from "./Components/LoginComponent/Login";
 import Home from "./Components/HomeComponent/Home";
 import Navbar from "./Components/NavBarComponent/Navbar";
+import Slot from "./Components/SlotComponent/Slot";
 import {
   BrowserRouter as Router,
   Route,
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/" element={<Register />}></Route>
         <Route path="/home" element={<SomePathLayout />} />
         <Route exact path="/navbar" element={<Navbar />}></Route>
+        <Route exact path="/slot" element={<Slot />}></Route>
       </Routes>
     </div>
   );
