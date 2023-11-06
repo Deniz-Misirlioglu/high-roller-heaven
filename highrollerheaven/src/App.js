@@ -21,7 +21,7 @@ function App() {
         <Route exact path="/" element={<Register />}></Route>
         <Route path="/home" element={<SomePathLayout />} />
         <Route exact path="/navbar" element={<Navbar />}></Route>
-        <Route exact path="/slot" element={<Slot />}></Route>
+        <Route exact path="/slot" element={<NavbarSlot />}></Route>
       </Routes>
     </div>
   );
@@ -32,6 +32,15 @@ function SomePathLayout() {
     <>
       <Navbar />
       <Home />
+    </>
+  );
+}
+
+function NavbarSlot() {
+  return (
+    <>
+      <Navbar />
+      <Slot />
     </>
   );
 }

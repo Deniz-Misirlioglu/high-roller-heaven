@@ -9,20 +9,17 @@ html {
   padding-left: 0;
   background-color: #333;
   width: 200px;
-  /* Added width */
   height: 100vh;
   font-family: Arial, sans-serif;
   color: #fff;
   padding-top: 0px;
   box-shadow: 10px 0px 10px -10px rgba(0, 0, 0, 0.5);
   transition: width 0.3s;
-  /* Transition effect */
   overflow: auto;
-  /* Hide content outside of width */
   left: 0;
   position: fixed;
   top: 5vh;
-  z-index: 1;
+  z-index: 2;
 }
 
 .navbar-brand {
@@ -41,7 +38,6 @@ html {
 
 .navbar-menu {
   width: 100%;
-  /* Change from 200px to 100% */
   transition: width 0.3s;
   overflow: hidden;
 }
@@ -52,7 +48,7 @@ html {
 }
 
 .navbar-menu li {
-  margin: 10px 0;
+  margin: 15px 0;
   padding: 10px;
   border-radius: 5px;
   transition: background-color 0.3s;
@@ -76,20 +72,15 @@ html {
   border: none;
   cursor: pointer;
   padding: 10px;
-  /* Adjusted padding */
   margin: 0px;
-  /* Adjusted margin */
   border-radius: 5px;
   transition: background-color 0.3s;
   position: absolute;
   left: 0;
-  /* Adjusted left position */
   top: 0px;
   box-sizing: border-box;
-  /* Added box-sizing */
   width: 60px;
-  z-index: 2;
-  /* Set the width equal to the collapsed navbar width */
+  z-index: 3;
 }
 
 .hamburger-btn:hover {
@@ -98,20 +89,32 @@ html {
 
 .navbar.collapsed {
   width: 60px;
-  /* This width will only show the hamburger */
   overflow: hidden;
   transition: width 0.3s;
 }
-
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
 .top-navbar {
   display: flex;
   justify-content: flex-end;
   background-color: #333;
   padding: 10px 15px;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
-  /* Bottom shadow */
+  width: 100%; /* Make it full width */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-end; /* Logout link on the far right */
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #333; /* Or your chosen color */
+  z-index: 1; /* High z-index to ensure it's above other content */
 }
-
 .top-navbar a {
   color: #fff;
   margin-left: 15px;
@@ -134,34 +137,27 @@ html {
   opacity: 1;
 }
 
-/* Existing rule for the hamburger button */
 .hamburger-btn:active {
   transform: scale(0.9);
 }
 
-/* Rule for the other links/buttons */
 .top-navbar a:active,
 .navbar-menu a:active {
   transform: scale(0.9);
   transition: transform 0.1s;
-  /* This makes the shrinking effect smoother */
 }
 
 .navbar.collapsed .navbar-menu a span {
   display: none;
-  /* Hide text when navbar is collapsed */
 }
 
 .navbar.collapsed .navbar-menu a {
   text-align: center;
-  /* Changed from left to center */
 }
 
 .navbar.collapsed .navbar-menu a .fa {
   display: inline-block;
-  /* Ensure the icon is always shown */
   margin-right: 0;
-  /* reset margin for icons */
 }
 
 .menu-list.show span {

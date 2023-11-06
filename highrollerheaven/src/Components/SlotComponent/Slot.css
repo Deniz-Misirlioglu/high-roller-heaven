@@ -1,0 +1,71 @@
+.slot-machine-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 20vh; /* Adjust this value to match the height of your .top-navbar */
+  z-index: 0;
+}
+
+.reels-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reel {
+  margin: 0 4px; /* Adjust margin as needed */
+}
+
+.symbol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Responsive sizing for symbols */
+.symbol {
+  width: 20vmin; /* Use vmin for responsive size based on viewport */
+  height: 20vmin; /* Adjust the size by changing the value */
+  font-size: 16vmin; /* Adjust font size to fit symbols in the box */
+}
+
+/* Style for horizontal winning symbols */
+.horizontal-win {
+  background-color: #4caf50; /* Or any other highlight color */
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* If you still need to fine-tune the vertical alignment */
+@media (min-aspect-ratio: 3/4) {
+  .slot-machine-container {
+    transform: translateY(-5%);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Adjustments for tablets and smaller screens */
+  .symbol {
+    width: 25vmin;
+    height: 25vmin;
+    font-size: 20vmin;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Adjustments for mobile screens */
+  .symbol {
+    width: 28vmin;
+    height: 28vmin;
+    font-size: 22vmin;
+  }
+}
