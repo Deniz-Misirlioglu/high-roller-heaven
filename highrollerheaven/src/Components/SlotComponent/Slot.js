@@ -7,10 +7,21 @@ import { useNavigate } from "react-router-dom";
 
 import "../SlotComponent/Slot.css";
 
-const symbols = ["🌠", "☀️", "☁️"];
+const symbols = ["🌠", "☁️", "🌟", "🌈"];
 
 // You can make it even rarer by adding more instances of the other symbols:
-const weightedSymbols = ["🌠", "🌠", "☀️", "☀️", "☁️", "☁️"];
+const weightedSymbols = [
+  "☁️",
+  "☁️",
+  "☁️",
+  "☁️",
+  "🌈",
+  "🌈",
+  "🌈",
+  "🌟",
+  "🌟",
+  "🌠",
+];
 
 const getRandomSymbol = () =>
   weightedSymbols[Math.floor(Math.random() * weightedSymbols.length)];
