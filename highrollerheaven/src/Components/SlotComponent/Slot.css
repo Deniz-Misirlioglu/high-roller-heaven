@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding-top: 20vh; /* Adjust this value to match the height of your .top-navbar */
+  padding-top: 20vh;
   z-index: 0;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .reel {
-  margin: 0 4px; /* Adjust margin as needed */
+  margin: 0 4px;
 }
 
 .symbol {
@@ -26,16 +26,14 @@
   box-sizing: border-box;
 }
 
-/* Responsive sizing for symbols */
 .symbol {
-  width: 20vmin; /* Use vmin for responsive size based on viewport */
-  height: 20vmin; /* Adjust the size by changing the value */
-  font-size: 16vmin; /* Adjust font size to fit symbols in the box */
+  width: 20vmin;
+  height: 20vmin;
+  font-size: 16vmin;
 }
 
-/* Style for horizontal winning symbols */
 .horizontal-win {
-  background-color: #4caf50; /* Or any other highlight color */
+  background-color: #4caf50;
   animation: blinker 1s linear infinite;
 }
 
@@ -45,27 +43,45 @@
   }
 }
 
-/* If you still need to fine-tune the vertical alignment */
-@media (min-aspect-ratio: 3/4) {
-  .slot-machine-container {
-    transform: translateY(-5%);
-  }
+.win-display {
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.win-message {
+  font-size: 1.5rem;
+  color: #4caf50;
+  animation: blinker 1s linear infinite;
+}
+
+.payout-table {
+  position: absolute;
+  left: 5vw;
+  top: 5vw;
+  width: fit-content;
+  font-size: 3em;
+  transition: font-size 0.3s ease, top 0.3s ease, left 0.3s ease;
+}
+
+.slot-machine {
+  flex-grow: 1;
 }
 
 @media (max-width: 768px) {
-  /* Adjustments for tablets and smaller screens */
-  .symbol {
-    width: 25vmin;
-    height: 25vmin;
-    font-size: 20vmin;
+  .slot-machine-container {
+    flex-direction: column;
+  }
+  .payout-table {
+    left: 3vw;
+    top: 10vh;
+    font-size: 2em;
   }
 }
 
 @media (max-width: 480px) {
-  /* Adjustments for mobile screens */
-  .symbol {
-    width: 28vmin;
-    height: 28vmin;
-    font-size: 22vmin;
+  .payout-table {
+    left: 2vw;
+    top: 12vh;
+    font-size: 1.5em;
   }
 }

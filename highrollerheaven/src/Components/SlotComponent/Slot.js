@@ -23,6 +23,13 @@ const weightedSymbols = [
   "🌠",
 ];
 
+const symbolMultipliers = {
+  "☁️": 1,
+  "🌈": 3,
+  "🌟": 10,
+  "🌠": 100,
+};
+
 const getRandomSymbol = () =>
   weightedSymbols[Math.floor(Math.random() * weightedSymbols.length)];
 
@@ -34,11 +41,14 @@ const Slot = () => {
   ]);
   const [spinning, setSpinning] = useState([false, false, false]);
   const [winLines, setWinLines] = useState([]);
+  const [betSize, setBetSize] = useState(1); // default bet size of 1
+  const [currentWin, setCurrentWin] = useState(0);
   const [winningSymbol, setWinningSymbol] = useState("");
   // Function to check for win lines
   const checkForWin = () => {
     // This function now relies on the current state of the reels
     setReels((currentReels) => {
+      let newCurrentWin = 0;
       const newWinLines = [];
 
       for (let row = 0; row < 3; row++) {
@@ -49,9 +59,11 @@ const Slot = () => {
           // If all symbols in the row match, it's a win
           newWinLines.push(row);
           setWinningSymbol(currentReels[0][row]);
+          const winMultiplier = symbolMultipliers[currentReels[0][row]];
+          newCurrentWin += winMultiplier * betSize;
         }
       }
-
+      setCurrentWin(newCurrentWin);
       setWinLines(newWinLines);
       return currentReels; // Return the reels without modification
     });
@@ -119,14 +131,35 @@ const Slot = () => {
   );
 
   return (
-    <div className="slot-machine-container">
-      <div className="slot-machine">
-        <div className="reels-container">{reels.map(renderReel)}</div>
-        <button onClick={spinReels} disabled={spinning.some((s) => s)}>
-          {spinning.some((s) => s) ? "Spinning..." : "Spin"}
-        </button>
+    <>
+      <div className="slot-machine-container">
+        <div className="slot-machine">
+          <div className="reels-container">{reels.map(renderReel)}</div>
+          <button onClick={spinReels} disabled={spinning.some((s) => s)}>
+            {spinning.some((s) => s) ? "Spinning..." : "Spin"}
+          </button>
+        </div>
+        <div className="win-display">
+          {currentWin > 0 && (
+            <div className="win-message">You won {currentWin}x your bet!</div>
+          )}
+        </div>
       </div>
-    </div>
+      <div className="payout-table">
+        <div className="payout-item">
+          <span className="payout-symbol">☁️</span> 1x
+        </div>
+        <div className="payout-item">
+          <span className="payout-symbol">🌈</span> 3x
+        </div>
+        <div className="payout-item">
+          <span className="payout-symbol">🌟</span> 10x
+        </div>
+        <div className="payout-item">
+          <span className="payout-symbol">🌠</span> 100x
+        </div>
+      </div>
+    </>
   );
 };
 
