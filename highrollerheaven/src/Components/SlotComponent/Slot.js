@@ -4,7 +4,8 @@ import AuthorizedUserContext from "../Authentication/AuthorizeUser";
 import bcrypt from "bcryptjs";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../SlotComponent/Slot.css";
 
 const symbols = ["🌠", "☁️", "🌟", "🌈"];
@@ -159,7 +160,8 @@ const Slot = () => {
           <span className="payout-symbol">🌠</span> 100x
         </div>
         <div className="win-information">
-          ⓘ Win by getting 3 symbols in a row
+          <FontAwesomeIcon icon={faInfoCircle} /> Win by getting 3 symbols in a
+          row
         </div>
       </div>
     </>
