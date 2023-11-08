@@ -158,6 +158,9 @@ const Slot = () => {
         <div className="payout-item">
           <span className="payout-symbol">🌠</span> 100x
         </div>
+        <div className="win-information">
+          ⓘ Win by getting 3 symbols in a row
+        </div>
       </div>
     </>
   );

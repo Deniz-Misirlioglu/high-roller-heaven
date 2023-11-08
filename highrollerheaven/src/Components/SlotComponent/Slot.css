@@ -59,8 +59,14 @@
   left: 5vw;
   top: 5vw;
   width: fit-content;
-  font-size: 3em;
+  background-color: #e9e7e4;
+  border-radius: 5px;
+  box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  font-weight: bold;
+  color: #333;
   transition: font-size 0.3s ease, top 0.3s ease, left 0.3s ease;
+  z-index: 1000;
 }
 
 .slot-machine {
@@ -78,10 +84,8 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1400px) {
   .payout-table {
-    left: 2vw;
-    top: 12vh;
-    font-size: 1.5em;
+    display: none;
   }
 }
