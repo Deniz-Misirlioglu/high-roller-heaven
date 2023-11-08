@@ -167,3 +167,7 @@ html {
 .menu-list span {
   display: none;
 }
+
+.nav-link {
+  cursor: pointer;
+}
