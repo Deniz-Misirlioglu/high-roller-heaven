@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../SlotComponent/Slot.css";
+import { useLocation } from "react-router-dom";
 
 const symbols = ["🌠", "☁️", "🌟", "🌈"];
 
@@ -35,19 +36,47 @@ const getRandomSymbol = () =>
   weightedSymbols[Math.floor(Math.random() * weightedSymbols.length)];
 
 const Slot = () => {
+  const location = useLocation();
+
+  const [spinning, setSpinning] = useState([false, false, false]);
+  const [winLines, setWinLines] = useState([]);
+  const [currentWin, setCurrentWin] = useState(0);
+  const [betSize, setBetSize] = useState(0);
+  const [winningSymbol, setWinningSymbol] = useState("");
+  const [user, setUser] = useState("");
+  const [mongoData, setMongoData] = useState([]);
+
+  useEffect(() => {
+    const getMongoData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/getCustomers");
+        setMongoData(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getMongoData();
+  }, []);
+
+  useEffect(() => {
+    console.log("MAKINFG IT HERE" + location.state.userAccount);
+    if (location.state.userAccount) {
+      const userId = location.state.userAccount;
+      const foundUser = mongoData.find((user) => user._id === userId);
+      setUser(foundUser);
+    }
+  }, [mongoData, location.state.userAccount]);
+
+  console.log(location);
+
   const [reels, setReels] = useState([
     [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()],
     [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()],
     [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()],
   ]);
-  const [spinning, setSpinning] = useState([false, false, false]);
-  const [winLines, setWinLines] = useState([]);
-  const [betSize, setBetSize] = useState(1); // default bet size of 1
-  const [currentWin, setCurrentWin] = useState(0);
-  const [winningSymbol, setWinningSymbol] = useState("");
-  // Function to check for win lines
+
   const checkForWin = () => {
-    // This function now relies on the current state of the reels
     setReels((currentReels) => {
       let newCurrentWin = 0;
       const newWinLines = [];
@@ -57,7 +86,6 @@ const Slot = () => {
           currentReels[0][row] === currentReels[1][row] &&
           currentReels[1][row] === currentReels[2][row]
         ) {
-          // If all symbols in the row match, it's a win
           newWinLines.push(row);
           setWinningSymbol(currentReels[0][row]);
           const winMultiplier = symbolMultipliers[currentReels[0][row]];
@@ -66,11 +94,10 @@ const Slot = () => {
       }
       setCurrentWin(newCurrentWin);
       setWinLines(newWinLines);
-      return currentReels; // Return the reels without modification
+      return currentReels;
     });
   };
 
-  // Function to spin an individual reel
   const spinReel = (reelIndex) => {
     const intervalId = setInterval(() => {
       setReels((prevReels) => {
@@ -86,27 +113,22 @@ const Slot = () => {
       });
     }, 80);
 
-    // Store the intervalId to clear it later
     setTimeout(() => {
       clearInterval(intervalId);
-      // After the last reel has stopped, check for wins
       if (reelIndex === reels.length - 1) {
         checkForWin();
       }
     }, 2000 + reelIndex * 1000);
   };
 
-  // Function to start spinning all reels and reset win lines
   const spinReels = () => {
     setSpinning([true, true, true]);
     setWinLines([]);
 
-    // Start spinning each reel
     reels.forEach((_, reelIndex) => {
       spinReel(reelIndex);
     });
 
-    // Reset the spinning state after all reels have stopped
     setTimeout(() => {
       setSpinning([false, false, false]);
     }, 2000 + (reels.length - 1) * 1000);
@@ -121,7 +143,6 @@ const Slot = () => {
       {reel.map((symbol, idx) => (
         <div
           key={idx}
-          // Add 'horizontal-win' class if this symbol is part of a win line
           className={`symbol ${winLines.includes(idx) ? "horizontal-win" : ""}`}
           style={{ padding: "10px", border: "1px solid #ccc", margin: "2px" }}
         >
@@ -136,6 +157,30 @@ const Slot = () => {
       <div className="slot-machine-container">
         <div className="slot-machine">
           <div className="reels-container">{reels.map(renderReel)}</div>
+          <div>
+            Bet Amount: {betSize}
+            <button
+              onClick={() => {
+                if (betSize - 10 >= 0) setBetSize(betSize - 10);
+                else {
+                  alert("Bet Size Cannot Be Negative");
+                }
+              }}
+            >
+              -
+            </button>
+            <button
+              onClick={() => {
+                if (betSize + 1000 > user.balance)
+                  alert("Cannot Bet more than Balance");
+                else {
+                  setBetSize(betSize + 1000);
+                }
+              }}
+            >
+              +
+            </button>
+          </div>
           <button onClick={spinReels} disabled={spinning.some((s) => s)}>
             {spinning.some((s) => s) ? "Spinning..." : "Spin"}
           </button>
@@ -146,6 +191,22 @@ const Slot = () => {
           )}
         </div>
       </div>
+      <div className="user-table">
+        <div>
+          {user && (
+            <>
+              <div>
+                <u>{user.username}</u>
+              </div>
+              <div>
+                Your Current balance is {user.balance}{" "}
+                <p>Adjust your bet with +/-</p>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
       <div className="payout-table">
         <div className="payout-item">
           <span className="payout-symbol">☁️</span> 1x

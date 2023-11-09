@@ -57,8 +57,9 @@
 .payout-table {
   position: absolute;
   left: 9vw;
-  top: 10.3vw;
-  width: fit-content;
+  padding: 20px;
+  top: 23vw;
+  width: 400px;
   background-color: #e9e7e4;
   border-radius: 5px;
   box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
@@ -69,6 +70,21 @@
   z-index: 1000;
 }
 
+.user-table {
+  position: absolute;
+  left: 9vw;
+  top: 10.3vw;
+  width: 400px;
+  padding: 20px;
+  background-color: #e9e7e4;
+  border-radius: 5px;
+  box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  font-weight: bold;
+  color: #333;
+  transition: font-size 0.3s ease, top 0.3s ease, left 0.3s ease;
+  z-index: 1000;
+}
 .slot-machine {
   flex-grow: 1;
 }
@@ -86,6 +102,9 @@
 
 @media (max-width: 1400px) {
   .payout-table {
+    display: none;
+  }
+  .user-table {
     display: none;
   }
 }
