@@ -108,3 +108,52 @@
     display: none;
   }
 }
+
+.number-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bet-amount {
+  position: relative;
+  z-index: 1; /* Ensures the bet amount is above the buttons */
+  margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+.number {
+  font-size: 24px;
+  margin: 5px;
+}
+
+.minus,
+.plus {
+  position: relative;
+  z-index: 2; /* Ensures the buttons are above the bet amount */
+}
+
+.entireNumberContainer {
+  position: absolute;
+  left: 70vw;
+  top: 10.3vw;
+  width: 280px;
+  padding: 20px;
+  background-color: #e9e7e4;
+  border-radius: 5px;
+  box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  font-weight: bold;
+  color: #333;
+  transition: font-size 0.3s ease, top 0.3s ease, left 0.3s ease;
+  z-index: 1000;
+}
+
+.entireNumberContainer button {
+  margin-bottom: 40px;
+}
+
+.bet-amount {
+  border: 5px solid #333;
+  border-radius: 5px;
+}

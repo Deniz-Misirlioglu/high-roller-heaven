@@ -60,15 +60,19 @@ const Slot = () => {
   }, []);
 
   useEffect(() => {
-    console.log("MAKINFG IT HERE" + location.state.userAccount);
+    if (currentWin > 0) {
+      console.log("ADDING " + currentWin * betSize);
+      changeUserBalance(currentWin * betSize);
+    }
+  }, [currentWin]);
+
+  useEffect(() => {
     if (location.state.userAccount) {
       const userId = location.state.userAccount;
       const foundUser = mongoData.find((user) => user._id === userId);
       setUser(foundUser);
     }
   }, [mongoData, location.state.userAccount]);
-
-  console.log(location);
 
   const [reels, setReels] = useState([
     [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()],
@@ -89,11 +93,12 @@ const Slot = () => {
           newWinLines.push(row);
           setWinningSymbol(currentReels[0][row]);
           const winMultiplier = symbolMultipliers[currentReels[0][row]];
-          newCurrentWin += winMultiplier * betSize;
+          newCurrentWin += winMultiplier;
         }
       }
       setCurrentWin(newCurrentWin);
       setWinLines(newWinLines);
+
       return currentReels;
     });
   };
@@ -116,12 +121,12 @@ const Slot = () => {
     setTimeout(() => {
       clearInterval(intervalId);
       if (reelIndex === reels.length - 1) {
-        checkForWin();
+        //checkForWin();
       }
     }, 2000 + reelIndex * 1000);
   };
 
-  const spinReels = () => {
+  const spinReels = async () => {
     setSpinning([true, true, true]);
     setWinLines([]);
 
@@ -131,6 +136,8 @@ const Slot = () => {
 
     setTimeout(() => {
       setSpinning([false, false, false]);
+
+      checkForWin();
     }, 2000 + (reels.length - 1) * 1000);
   };
 
@@ -152,34 +159,142 @@ const Slot = () => {
     </div>
   );
 
+  const changeUserBalance = async (changingAmount) => {
+    const date = Date.now();
+
+    console.log("THIS CHANGING AMOUNT" + changingAmount);
+
+    const post = {
+      content: `User balance has been refilled by ${changingAmount}`,
+      amount: changingAmount,
+      date: date,
+    };
+
+    const response = await axios.post(
+      "http://localhost:3001/postCustomers/" + user._id,
+      post
+    );
+
+    console.log("User balance has been refilled:", user.balance);
+    if (response.status === 201) {
+      setUser({
+        ...user,
+        balance: user.balance + Number(changingAmount),
+      });
+    }
+  };
+
   return (
     <>
       <div className="slot-machine-container">
         <div className="slot-machine">
           <div className="reels-container">{reels.map(renderReel)}</div>
-          <div>
-            Bet Amount: {betSize}
-            <button
-              onClick={() => {
-                if (betSize - 10 >= 0) setBetSize(betSize - 10);
-                else {
-                  alert("Bet Size Cannot Be Negative");
-                }
-              }}
-            >
-              -
-            </button>
-            <button
-              onClick={() => {
-                if (betSize + 1000 > user.balance)
-                  alert("Cannot Bet more than Balance");
-                else {
-                  setBetSize(betSize + 1000);
-                }
-              }}
-            >
-              +
-            </button>
+          <div className="entireNumberContainer">
+            <div className="number-container1">
+              <button
+                className="number plus1"
+                onClick={() => {
+                  if (betSize - 10 < 0) {
+                    alert("Bet Size Cannot Be Negative");
+                  } else {
+                    setBetSize(betSize - 10);
+                  }
+                }}
+              >
+                -
+              </button>
+              10
+              <button
+                className="number minus1"
+                onClick={() => {
+                  if (betSize + 10 < user.balance) setBetSize(betSize + 10);
+                  else {
+                    alert("Cannot Bet more than Balance");
+                  }
+                }}
+              >
+                +
+              </button>
+            </div>
+            <div className="number-container2">
+              <button
+                className="number plus2"
+                onClick={() => {
+                  if (betSize - 20 < 0) {
+                    alert("Bet Size Cannot Be Negative");
+                  } else {
+                    setBetSize(betSize - 20);
+                  }
+                }}
+              >
+                -
+              </button>
+              20
+              <button
+                className="number minus2"
+                onClick={() => {
+                  if (betSize + 20 < user.balance) setBetSize(betSize + 20);
+                  else {
+                    alert("Cannot Bet more than Balance");
+                  }
+                }}
+              >
+                +
+              </button>
+            </div>
+            <div className="number-container3">
+              <button
+                className="number plus3"
+                onClick={() => {
+                  if (betSize - 50 < 0) {
+                    alert("Bet Size Cannot Be Negative");
+                  } else {
+                    setBetSize(betSize - 50);
+                  }
+                }}
+              >
+                -
+              </button>
+              50
+              <button
+                className="number minus3"
+                onClick={() => {
+                  if (betSize + 50 < user.balance) setBetSize(betSize + 50);
+                  else {
+                    alert("Cannot Bet more than Balance");
+                  }
+                }}
+              >
+                +
+              </button>
+            </div>
+            <div className="number-container4">
+              <button
+                className="number plus4"
+                onClick={() => {
+                  if (betSize - 100 < 0) {
+                    alert("Bet Size Cannot Be Negative");
+                  } else {
+                    setBetSize(betSize - 100);
+                  }
+                }}
+              >
+                -
+              </button>
+              100
+              <button
+                className="number minus3"
+                onClick={() => {
+                  if (betSize + 100 < user.balance) setBetSize(betSize + 100);
+                  else {
+                    alert("Cannot Bet more than Balance");
+                  }
+                }}
+              >
+                +
+              </button>
+              <div className="bet-amount">Bet Amount: {betSize}</div>
+            </div>
           </div>
           <button onClick={spinReels} disabled={spinning.some((s) => s)}>
             {spinning.some((s) => s) ? "Spinning..." : "Spin"}
