@@ -45,6 +45,7 @@ const Slot = () => {
   const [winningSymbol, setWinningSymbol] = useState("");
   const [user, setUser] = useState("");
   const [mongoData, setMongoData] = useState([]);
+  const [justWon, setJustWon] = useState(false);
 
   useEffect(() => {
     const getMongoData = async () => {
@@ -63,6 +64,7 @@ const Slot = () => {
     if (currentWin > 0) {
       console.log("ADDING " + currentWin * betSize);
       changeUserBalance(currentWin * betSize);
+      setJustWon(true);
     }
   }, [currentWin]);
 
@@ -127,6 +129,8 @@ const Slot = () => {
   };
 
   const spinReels = async () => {
+    setJustWon(false);
+    changeUserBalance(betSize * -1);
     setSpinning([true, true, true]);
     setWinLines([]);
 
@@ -180,12 +184,14 @@ const Slot = () => {
       setUser({
         ...user,
         balance: user.balance + Number(changingAmount),
+        refillBalanceTime: user.refillBalanceTime,
       });
     }
   };
 
   return (
     <>
+      <h1 className="title1">High Roller Heaven</h1>
       <div className="slot-machine-container">
         <div className="slot-machine">
           <div className="reels-container">{reels.map(renderReel)}</div>
@@ -301,7 +307,7 @@ const Slot = () => {
           </button>
         </div>
         <div className="win-display">
-          {currentWin > 0 && (
+          {justWon > 0 && (
             <div className="win-message">You won {currentWin}x your bet!</div>
           )}
         </div>
