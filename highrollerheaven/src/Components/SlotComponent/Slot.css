@@ -1,0 +1,183 @@
+.slot-machine-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 2.5vh;
+  z-index: 0;
+}
+
+.reels-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reel {
+  margin: 0 4px;
+}
+
+.symbol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+}
+
+.symbol {
+  width: 20vmin;
+  height: 20vmin;
+  font-size: 16vmin;
+}
+
+.horizontal-win {
+  background-color: #4caf50;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.win-display {
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.win-message {
+  font-size: 1.5rem;
+  color: #4caf50;
+  animation: blinker 1s linear infinite;
+}
+
+.payout-table {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 200px;
+  width: 400px;
+  background-color: #e9e7e4;
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #333;
+  transition: font-size 0.3s ease, top 0.3s ease, left 0.3s ease;
+  z-index: 1000;
+}
+
+.user-table {
+  position: absolute;
+  left: 7%;
+  top: 10.3vw;
+  width: 400px;
+  background-color: #e9e7e4;
+  border-radius: 5px;
+  box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  font-weight: bold;
+  color: #333;
+  transition: font-size 0.3s ease, top 0.3s ease, left 0.3s ease;
+  z-index: 1000;
+}
+.slot-machine {
+  flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+  .slot-machine-container {
+    flex-direction: column;
+  }
+  .payout-table {
+    left: 3vw;
+    top: 10vh;
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 1400px) {
+  .payout-table {
+    display: none;
+  }
+  .user-table {
+    display: none;
+  }
+}
+
+.number-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bet-amount {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+
+.number {
+  font-size: 24px;
+  margin: 5px;
+}
+
+.minus,
+.plus {
+  position: relative;
+  z-index: 2;
+}
+
+.entireNumberContainer {
+  position: absolute;
+  left: 67%;
+  top: 10.3vw;
+  width: 280px;
+  padding: 20px;
+  background-color: #e9e7e4;
+  border-radius: 5px;
+  box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  font-weight: bold;
+  color: #333;
+  transition: font-size 0.3s ease, top 0.3s ease, left 0.3s ease;
+  z-index: 1000;
+}
+
+.entireNumberContainer button {
+  margin-bottom: 40px;
+}
+
+.bet-amount {
+  border: 5px solid #333;
+  border-radius: 5px;
+}
+
+.title1 {
+  padding-top: 5vh;
+  color: white;
+  animation: fadeTitle 7s ease infinite;
+}
+
+@keyframes fadeTitle {
+  0% {
+    color: white;
+  }
+  25% {
+    color: #808080;
+  }
+  50% {
+    color: black;
+  }
+  75% {
+    color: #808080;
+  }
+  100% {
+    color: white;
+  }
+}

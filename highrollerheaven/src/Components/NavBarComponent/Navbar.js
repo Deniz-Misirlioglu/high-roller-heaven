@@ -3,8 +3,15 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faDice, faUser } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  console.log(location.state.userAccount);
+  const userId = location.state.userAccount;
   const [isExpanded, setIsExpanded] = useState(false);
   const [showText, setShowText] = useState(false);
 
@@ -22,6 +29,14 @@ const Navbar = () => {
     }
   };
 
+  const navigateToHome = (userId) => {
+    navigate("/home", { replace: true, state: { userAccount: userId } });
+  };
+
+  const navigateToSlots = (userId) => {
+    navigate("/slot", { replace: true, state: { userAccount: userId } });
+  };
+
   return (
     <>
       <div className="top-navbar">
@@ -34,16 +49,16 @@ const Navbar = () => {
         <div className="navbar-menu">
           <ul className={`menu-list ${showText ? "show" : ""}`}>
             <li>
-              <Link to="/">
+              <div className="nav-link" onClick={() => navigateToHome(userId)}>
                 <FontAwesomeIcon icon={faHome} />
                 <span> Home</span>
-              </Link>
+              </div>
             </li>
             <li>
-              <Link to="/games">
+              <div className="nav-link" onClick={() => navigateToSlots(userId)}>
                 <FontAwesomeIcon icon={faDice} />
-                <span> Games</span>
-              </Link>
+                <span> Slots</span>
+              </div>
             </li>
             <li>
               <Link to="/account">
