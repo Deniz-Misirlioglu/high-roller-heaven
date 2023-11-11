@@ -118,8 +118,8 @@
 
 .bet-amount {
   position: relative;
-  z-index: 1; /* Ensures the bet amount is above the buttons */
-  margin-bottom: 10px; /* Adjust the margin as needed */
+  z-index: 1;
+  margin-bottom: 10px;
 }
 
 .number {
@@ -130,7 +130,7 @@
 .minus,
 .plus {
   position: relative;
-  z-index: 2; /* Ensures the buttons are above the bet amount */
+  z-index: 2;
 }
 
 .entireNumberContainer {
