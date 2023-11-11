@@ -55,14 +55,15 @@
 }
 
 .payout-table {
-  position: absolute;
-  left: 9vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  top: 23vw;
+  min-height: 200px;
   width: 400px;
   background-color: #e9e7e4;
   border-radius: 5px;
-  box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
   font-size: 1em;
   font-weight: bold;
   color: #333;
@@ -72,10 +73,9 @@
 
 .user-table {
   position: absolute;
-  left: 9vw;
+  left: 10%;
   top: 10.3vw;
   width: 400px;
-  padding: 20px;
   background-color: #e9e7e4;
   border-radius: 5px;
   box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
@@ -135,7 +135,7 @@
 
 .entireNumberContainer {
   position: absolute;
-  left: 70vw;
+  left: 70%;
   top: 10.3vw;
   width: 280px;
   padding: 20px;
