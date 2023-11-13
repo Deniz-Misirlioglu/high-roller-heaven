@@ -5,6 +5,7 @@ import Login from "./Components/LoginComponent/Login";
 import Home from "./Components/HomeComponent/Home";
 import Navbar from "./Components/NavBarComponent/Navbar";
 import Slot from "./Components/SlotComponent/Slot";
+import Roulette from "./Components/RouletteComponent/Roulette";
 import {
   BrowserRouter as Router,
   Route,
@@ -22,6 +23,7 @@ function App() {
         <Route path="/home" element={<SomePathLayout />} />
         <Route exact path="/navbar" element={<Navbar />}></Route>
         <Route exact path="/slot" element={<NavbarSlot />}></Route>
+        <Route exact path="/roulette" element={<Roulette />}></Route>
       </Routes>
     </div>
   );
@@ -41,6 +43,15 @@ function NavbarSlot() {
     <>
       <Navbar />
       <Slot />
+    </>
+  );
+}
+
+function NavbarRoulette() {
+  return (
+    <>
+      <Navbar />
+      <Roulette />
     </>
   );
 }
