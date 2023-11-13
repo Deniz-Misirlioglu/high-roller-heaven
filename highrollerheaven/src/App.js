@@ -23,7 +23,7 @@ function App() {
         <Route path="/home" element={<SomePathLayout />} />
         <Route exact path="/navbar" element={<Navbar />}></Route>
         <Route exact path="/slot" element={<NavbarSlot />}></Route>
-        <Route exact path="/roulette" element={<Roulette />}></Route>
+        <Route exact path="/roulette" element={<NavbarRoulette />}></Route>
       </Routes>
     </div>
   );
