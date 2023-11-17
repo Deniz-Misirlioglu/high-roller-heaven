@@ -24,6 +24,7 @@ function App() {
         <Route path="/home" element={<SomePathLayout />} />
         <Route exact path="/navbar" element={<Navbar />}></Route>
         <Route exact path="/slot" element={<NavbarSlot />}></Route>
+        <Route exact path="/blackjack" element={<Blackjack />}></Route>
       </Routes>
     </div>
   );
