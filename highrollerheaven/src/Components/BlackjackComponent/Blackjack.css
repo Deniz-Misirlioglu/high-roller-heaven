@@ -1,0 +1,39 @@
+
+.card {
+    width: 100px;
+    height: 150px;
+    border: 1px solid #000;
+    background-color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+  }
+  
+  .card-suit {
+    font-size: 24px;
+  }
+  
+  .card-rank {
+    font-size: 32px;
+  }
+  
+  .deck {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the deck horizontally */
+    align-items: center; /* Center the deck vertically */
+  }
+  
+  .player-hand, .dealer-hand {
+    display: flex;
+    justify-content: center; /* Center the hands horizontally */
+    align-items: center; /* Center the hands vertically */
+  }
+  
+  .betting-section button,
+  .game-controls button {
+    margin: 5px;
+  }

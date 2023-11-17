@@ -5,6 +5,8 @@ import Login from "./Components/LoginComponent/Login";
 import Home from "./Components/HomeComponent/Home";
 import Navbar from "./Components/NavBarComponent/Navbar";
 import Slot from "./Components/SlotComponent/Slot";
+import Blackjack from "./Components/BlackjackComponent/Blackjack";
+
 import {
   BrowserRouter as Router,
   Route,
