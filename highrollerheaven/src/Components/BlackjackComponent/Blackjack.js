@@ -411,10 +411,10 @@ const Blackjack = () => {
               ))}
             </div>
           </div>
-          {onlyFirstCard && secondCardFace !== 0 ? (
+          {onlyFirstCard ? (
             <div className="dealer-section">
               <div>{secondCardFace.rank}</div>
-              <h2>Dealer: {calculateHandValue(dealerHand) - secondCardFace}</h2>
+              <h2>Dealer: N/A </h2>
               <div className="dealer-hand">
                 {dealerHand.map((card, index) => (
                   <Card
