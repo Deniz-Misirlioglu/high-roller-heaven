@@ -43,8 +43,9 @@ const Blackjack = () => {
   const [totalBalance, setTotalBalance] = useState(0);
   const [user, setUser] = useState("");
   const [mongoData, setMongoData] = useState([]);
-  const [betSize, setBetSize] = useState(0);
-
+  const [cardsDealt, setCardsDealt] = useState(false);
+  const [secondCardFace, setSecondCardFace] = useState(0);
+  const [onlyFirstCard, setOnlyFirstCart] = useState(true);
   useEffect(() => {
     const getMongoData = async () => {
       try {
@@ -104,16 +105,51 @@ const Blackjack = () => {
       return;
     }
 
+    // Reset necessary game states for a new round
     setPlayerHand([]);
     setDealerHand([]);
     setGameResult("");
-
+    setGameOver(false);
+    setCardsDealt(true);
+    setOnlyFirstCart(true);
     const shuffledDeck = shuffleDeck(initialDeck);
 
-    setPlayerHand([shuffledDeck.pop(), shuffledDeck.pop()]);
-    setDealerHand([shuffledDeck.pop(), shuffledDeck.pop()]);
+    const playerInitialHand = [shuffledDeck.pop(), shuffledDeck.pop()];
+    const dealerInitialHand = [
+      { ...shuffledDeck.pop(), faceDown: true }, // Face down for dealer
+      shuffledDeck.pop(), // Face up for dealer
+    ];
+
+    const secondCard = dealerInitialHand.find((card, index) => index === 1);
+    const secondCardRank = secondCard ? secondCard.rank : 0;
+    setSecondCardFace(secondCardRank);
+
+    setPlayerHand(playerInitialHand);
+
+    setDealerHand(dealerInitialHand);
     setDeck(shuffledDeck);
-    return 1;
+
+    changeUserBalance(betAmount * -1);
+
+    if (calculateHandValue(playerInitialHand) === 21) {
+      const result = "Player wins with Blackjack!";
+      setOnlyFirstCart(false);
+      changeUserBalance(betAmount * 2.5);
+      setGameResult(result);
+      setGameOver(true);
+      setCardsDealt(false);
+      return;
+    }
+    if (calculateHandValue(dealerInitialHand) === 21) {
+      const result = "Dealer wins with Blackjack!";
+      setOnlyFirstCart(false);
+      setGameResult(result);
+      setGameOver(true);
+      setCardsDealt(false);
+      return;
+    }
+
+    setCardsDealt(true);
   };
 
   const hit = () => {
@@ -134,10 +170,20 @@ const Blackjack = () => {
       setTotalBalance(totalBalance - betAmount);
       setGameResult(result);
       setGameOver(true);
+      setCardsDealt(false);
+    }
+    if (calculateHandValue(newPlayerHand) === 21) {
+      const result = "Player Wins";
+      setTotalBalance(totalBalance - betAmount);
+      setGameResult(result);
+      changeUserBalance(betAmount * 2);
+      setGameOver(true);
+      setCardsDealt(false);
     }
   };
 
   const stand = () => {
+    setOnlyFirstCart(false);
     if (gameOver || betAmount === 0) {
       alert("Game hasn't started");
       return;
@@ -160,7 +206,11 @@ const Blackjack = () => {
     let result, winnings;
     if (dealerValue > 21 || (playerValue <= 21 && playerValue > dealerValue)) {
       result = "Player wins!";
-      winnings = 1.5 * betAmount;
+      winnings = 2 * betAmount;
+      changeUserBalance(betAmount * 2);
+    } else if (playerValue === 21) {
+      result = "Player wins!";
+      winnings = 2.5 * betAmount;
     } else if (playerValue === dealerValue) {
       result = "It's a tie!";
       winnings = 0;
@@ -173,6 +223,33 @@ const Blackjack = () => {
     setGameResult(result);
     setBetAmount(0);
     setGameOver(true);
+    setCardsDealt(false);
+  };
+
+  const changeUserBalance = async (changingAmount) => {
+    const date = Date.now();
+
+    console.log("THIS CHANGING AMOUNT" + changingAmount);
+
+    const post = {
+      content: `User balance has been refilled by ${changingAmount}`,
+      amount: changingAmount,
+      date: date,
+    };
+
+    const response = await axios.post(
+      "http://localhost:3001/postCustomers/" + user._id,
+      post
+    );
+
+    console.log("User balance has been refilled:", user.balance);
+    if (response.status === 201) {
+      setUser({
+        ...user,
+        balance: user.balance + Number(changingAmount),
+        refillBalanceTime: user.refillBalanceTime,
+      });
+    }
   };
 
   const calculateHandValue = (hand) => {
@@ -316,8 +393,12 @@ const Blackjack = () => {
           </div>
           <div className="game-controls">
             <button onClick={deal}>Deal</button>
-            <button onClick={hit}>Hit</button>
-            <button onClick={stand}>Stand</button>
+            <button onClick={hit} disabled={!cardsDealt}>
+              Hit
+            </button>
+            <button onClick={stand} disabled={!cardsDealt}>
+              Stand
+            </button>
           </div>
 
           <p>Bet Amount: {betAmount}</p>
@@ -330,14 +411,34 @@ const Blackjack = () => {
               ))}
             </div>
           </div>
-          <div className="dealer-section">
-            <h2>Dealer: ({calculateHandValue(dealerHand)})</h2>
-            <div className="dealer-hand">
-              {dealerHand.map((card, index) => (
-                <Card key={index} suit={card.suit} rank={card.rank} />
-              ))}
+          {onlyFirstCard && secondCardFace !== 0 ? (
+            <div className="dealer-section">
+              <div>{secondCardFace.rank}</div>
+              <h2>Dealer: {calculateHandValue(dealerHand) - secondCardFace}</h2>
+              <div className="dealer-hand">
+                {dealerHand.map((card, index) => (
+                  <Card
+                    key={index}
+                    suit={index === 1 ? null : card.faceDown}
+                    rank={index === 1 ? null : card.rank}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="dealer-section">
+              <h2>Dealer: ({calculateHandValue(dealerHand)})</h2>
+              <div className="dealer-hand">
+                {dealerHand.map((card, index) => (
+                  <Card
+                    key={index}
+                    suit={index === 1 ? card.faceDown : card.faceDown}
+                    rank={index === 1 ? card.rank : card.rank}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
           {gameOver && (
             <div className="end-game-prompt">
               <p>{gameResult}</p>
