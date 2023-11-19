@@ -5,6 +5,8 @@ import Login from "./Components/LoginComponent/Login";
 import Home from "./Components/HomeComponent/Home";
 import Navbar from "./Components/NavBarComponent/Navbar";
 import Slot from "./Components/SlotComponent/Slot";
+import Blackjack from "./Components/BlackjackComponent/Blackjack";
+
 import {
   BrowserRouter as Router,
   Route,
@@ -19,15 +21,16 @@ function App() {
         <Route exact path="/register" element={<Register />}></Route>
         <Route exact path="/login" element={<Login />}></Route>
         <Route exact path="/" element={<Register />}></Route>
-        <Route path="/home" element={<SomePathLayout />} />
+        <Route path="/home" element={<NavBarHome />} />
         <Route exact path="/navbar" element={<Navbar />}></Route>
         <Route exact path="/slot" element={<NavbarSlot />}></Route>
+        <Route exact path="/blackjack" element={<NavBarBlackjack />}></Route>
       </Routes>
     </div>
   );
 }
 
-function SomePathLayout() {
+function NavBarHome() {
   return (
     <>
       <Navbar />
@@ -41,6 +44,15 @@ function NavbarSlot() {
     <>
       <Navbar />
       <Slot />
+    </>
+  );
+}
+
+function NavBarBlackjack() {
+  return (
+    <>
+      <Navbar />
+      <Blackjack />
     </>
   );
 }

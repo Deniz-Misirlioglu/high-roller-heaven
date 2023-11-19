@@ -36,6 +36,9 @@ const Navbar = () => {
   const navigateToSlots = (userId) => {
     navigate("/slot", { replace: true, state: { userAccount: userId } });
   };
+  const navigateToBlackJack = (userId) => {
+    navigate("/blackjack", { replace: true, state: { userAccount: userId } });
+  };
 
   return (
     <>
@@ -56,6 +59,15 @@ const Navbar = () => {
             </li>
             <li>
               <div className="nav-link" onClick={() => navigateToSlots(userId)}>
+                <FontAwesomeIcon icon={faDice} />
+                <span> Slots</span>
+              </div>
+            </li>
+            <li>
+              <div
+                className="nav-link"
+                onClick={() => navigateToBlackJack(userId)}
+              >
                 <FontAwesomeIcon icon={faDice} />
                 <span> Slots</span>
               </div>
