@@ -1,25 +1,18 @@
 .roulette-container {
-  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  margin-top: 100px;
-  width: 100%;
+  align-items: center;
+  text-align: center;
+  padding-top: 2.5vh;
+  z-index: 0;
 }
-
 .wheel-and-arrow-container {
-  position: relative;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.roulette-arrow {
-  position: absolute;
-  font-size: 40px;
-  top: 46%;
-  left: -7%;
-  z-index: 2000;
-}
 .roulette-wheel {
   width: 500px;
   height: 500px;
@@ -30,6 +23,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.roulette-arrow {
+  position: absolute;
+  font-size: 40px; /* Adjust the size as needed */
+  top: 50%; /* Centers the arrow vertically */
+  left: 25%; /* Negative value to position the arrow outside the wheel */
+  z-index: 2000;
 }
 
 .roulette-number {
@@ -71,21 +72,60 @@
   position: relative;
 }
 
+.bet-size-section {
+  margin-bottom: 20px;
+}
+
+.winning-info-container {
+  display: flex;
+  justify-content: center; /* Center the container horizontally */
+  align-items: center; /* Center the container vertically */
+  margin-top: 20px; /* Space above the container */
+}
+
 .winning-info {
-  margin-top: 20px;
   padding: 10px;
   border: 2px solid #333;
   text-align: center;
+  background-color: #e9e7e4; /* Optional: background color */
+  border-radius: 5px; /* Optional: rounded corners */
+  box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1); /* Optional: box shadow */
+  /* Set a max-width if you want to limit its stretch */
+  max-width: 300px; /* Adjust as needed */
 }
-
-.winning-info.red {
-  color: rgb(0, 0, 0);
-}
-
-.winning-info.black {
-  color: black;
-}
-
+.winning-info.red,
+.winning-info.black,
 .winning-info.green {
-  color: rgb(0, 0, 0);
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Media queries to adjust layout for smaller screens */
+@media (max-width: 768px) {
+  .roulette-container {
+    flex-direction: column;
+  }
+}
+
+.bet-on-color-container,
+.bet-on-number-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #e9e7e4;
+  border-radius: 5px;
+  box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
+}
+
+.selected-color-display,
+.selected-number-display {
+  margin-top: 10px;
+  padding: 5px;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  text-align: center;
 }
