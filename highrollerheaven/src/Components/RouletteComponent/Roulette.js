@@ -1,11 +1,13 @@
 import { useRef, useState, useEffect, useContext } from "react";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../RouletteComponent/Roulette.css";
 
 const Roulette = () => {
   const wheelRef = useRef();
   const [selectedNumber, setSelectedNumber] = useState(null);
-
   const [isSpinning, setIsSpinning] = useState(false);
+  const [winningInfo, setWinningInfo] = useState({ number: null, color: null });
 
   const spinWheel = () => {
     setIsSpinning(true); // Disable the button
@@ -26,6 +28,10 @@ const Roulette = () => {
       // Adjust for the array index starting at 0
       numberIndex = (37 - numberIndex) % 37;
       setSelectedNumber(numberIndex);
+
+      const winningNumber = numberIndex; // Assuming numberIndex is your winning number
+      const winningColor = colors[winningNumber]; // Get the color from your colors array
+      setWinningInfo({ number: winningNumber, color: winningColor });
 
       // Reset transition for next spin
       if (wheelRef.current) {
@@ -80,22 +86,30 @@ const Roulette = () => {
 
   return (
     <div className="roulette-container">
-      <div className="roulette-arrow"></div>
-      <div className="roulette-wheel" ref={wheelRef}>
-        {[...Array(37)].map((_, i) => (
-          <div
-            key={i}
-            className={`roulette-number ${colors[i]}`}
-            style={{ "--angle": `${i * (360 / 37)}deg` }}
-            data-number={i}
-          ></div>
-        ))}
+      <div className="wheel-and-arrow-container">
+        <FontAwesomeIcon icon={faArrowRight} className="roulette-arrow" />
+        <div className="roulette-wheel" ref={wheelRef}>
+          {[...Array(37)].map((_, i) => (
+            <div
+              key={i}
+              className={`roulette-number ${colors[i]}`}
+              style={{ "--angle": `${i * (360 / 37)}deg` }}
+              data-number={i}
+            ></div>
+          ))}
+        </div>
       </div>
+
+      {winningInfo.number !== null && (
+        <div className={`winning-info ${winningInfo.color}`}>
+          <p>Winning Number: {winningInfo.number}</p>
+          <p>Color: {winningInfo.color}</p>
+        </div>
+      )}
+
       <button onClick={spinWheel} className="spin-button" disabled={isSpinning}>
         Spin Wheel
       </button>
-
-      {selectedNumber !== null && <p>Selected Number: {selectedNumber}</p>}
     </div>
   );
 };

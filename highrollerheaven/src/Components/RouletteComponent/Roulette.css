@@ -3,13 +3,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* This will center the wheel vertically */
-  margin-top: 20px;
-  width: 100%; /* Ensure the container takes full width */
+  justify-content: center;
+  margin-top: 100px;
+  width: 100%;
+}
+
+.wheel-and-arrow-container {
+  position: relative;
+  display: inline-block;
+}
+
+.roulette-arrow {
+  position: absolute;
+  font-size: 40px;
+  top: 46%;
+  left: -7%;
+  z-index: 2000;
 }
 .roulette-wheel {
-  width: 500px; /* Increased from 300px */
-  height: 500px; /* Increased from 300px */
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
   border: 5px solid #333;
   position: relative;
@@ -22,7 +35,7 @@
 .roulette-number {
   --slice-degree: calc(360deg / 37);
   position: absolute;
-  width: 85%; /* Adjusted for better number visibility */
+  width: 85%;
   height: 40%;
   text-align: center;
   transform: rotate(var(--angle)) translateX(-50%);
@@ -32,15 +45,14 @@
   content: attr(data-number);
   display: inline-block;
   color: white;
-  font-size: 20px; /* Increase the font size for better readability */
-  width: 30px; /* Set a fixed width */
-  height: 30px; /* Set a fixed height to match the width */
-  border-radius: 50%; /* Make it circular */
-  line-height: 30px; /* Center the number vertically */
-  text-align: center; /* Center the number horizontally */
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  line-height: 30px;
+  text-align: center;
 }
 
-/* Adding specific classes for red and black numbers */
 .red::after {
   background-color: red;
 }
@@ -49,26 +61,31 @@
   background-color: black;
 }
 
-/* Optional: Adding a green color for the '0' */
 .green::after {
   background-color: green;
 }
 
 .spin-button {
-  margin-top: 20px; /* Adjust this value as needed */
-  z-index: 1000; /* A high value to ensure it's on top of other elements */
-  position: relative; /* z-index works only on positioned elements (position:absolute, position:relative, or position:fixed) */
+  margin-top: 20px;
+  z-index: 1000;
+  position: relative;
 }
 
-.roulette-arrow {
-  width: 0;
-  height: 0;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-right: 40px solid black; /* Adjust the color as needed */
-  position: absolute;
-  left: 35%;
-  top: 37%;
-  transform: rotate(180deg); /* Adjust for correct alignment */
-  z-index: 2000;
+.winning-info {
+  margin-top: 20px;
+  padding: 10px;
+  border: 2px solid #333;
+  text-align: center;
+}
+
+.winning-info.red {
+  color: rgb(0, 0, 0);
+}
+
+.winning-info.black {
+  color: black;
+}
+
+.winning-info.green {
+  color: rgb(0, 0, 0);
 }
