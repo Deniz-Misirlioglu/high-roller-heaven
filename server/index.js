@@ -43,7 +43,11 @@ app.post("/postCustomers/:userId", async (req, res) => {
       content: postData.content,
     };
     user.balance += amount;
-    user.refillBalanceTime = date;
+
+    if (!user.refillBalanceTime) {
+      user.refillBalanceTime = date;
+    }
+
     user.posts.push(newPost);
 
     await user.save();

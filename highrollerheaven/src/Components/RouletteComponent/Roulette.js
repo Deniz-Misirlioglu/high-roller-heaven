@@ -17,6 +17,7 @@ const Roulette = () => {
   const [mongoData, setMongoData] = useState([]);
   const [user, setUser] = useState(null);
   const [currentWin, setCurrentWin] = useState(0);
+  const [wheelRotationAngle, setWheelRotationAngle] = useState(0);
 
   const europeanWheelNumbers = [
     0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5,
@@ -111,7 +112,7 @@ const Roulette = () => {
   };
 
   const spinWheel = () => {
-    // Check betting conditions before spinning
+    setWinningInfo({ number: null, color: null });
     if (
       (selectedNumber === "" || selectedNumber === null) &&
       NumberBetSize > 0
@@ -140,13 +141,13 @@ const Roulette = () => {
       );
       return;
     }
-    // if color bet size is 0, unselect color
     if (ColorBetSize === 0) {
       setSelectedColor("None");
     }
     changeUserBalance((ColorBetSize + NumberBetSize) * -1);
-    setIsSpinning(true); // Disable the button
-    const spinToAngle = Math.floor(Math.random() * 360 + 720); // At least two full rotations of the wheel
+    setIsSpinning(true);
+    const spinToAngle = Math.floor(Math.random() * 360 + 720);
+    setWheelRotationAngle(spinToAngle);
     const cssTransition = `transform 4s cubic-bezier(0.17, 0.67, 0.83, 0.67)`;
 
     if (wheelRef.current) {
@@ -227,127 +228,130 @@ const Roulette = () => {
     }
   };
 
+  const winningInfoStyle = {
+    transform: `rotate(${-wheelRotationAngle}deg)`,
+  }
+
   return (
-    <div className="roulette-container">
-      <div className="user-table-roulette">
-        <div>
-          {user && (
-            <>
-              <div>
-                <u>{user.username}</u>
+    <>
+      <h1 className="title1">High Roller Heaven</h1>
+      <div className="roulette-container">
+        <div className="user-table-roulette">
+          <div>
+            {user && (
+              <>
+                <div>
+                  <u>{user.username}</u>
+                </div>
+                <div>
+                  Your Current balance is {user.balance}{" "}
+                  <p>Adjust your bet with +/-</p>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+        <div className="betting-controls-container-color">
+          Color Betting
+          <div className="color-betting">
+            <div className="selection-group-color">
+              <button onClick={() => setSelectedColor("Red")} style={{ backgroundColor: 'red' }}>Red</button>
+              <button onClick={() => setSelectedColor("Black")} style={{ backgroundColor: 'black' }}>Black</button>
+
+            </div>
+            <p>Selected Color: {selectedColor}</p>
+            <div className="bet-size-selector-color">
+              <div className="bet-button-group">
+                <button onClick={() => changeColorBetSize(-10)}>-10</button>
+                <button onClick={() => changeColorBetSize(10)}>+10</button>
               </div>
-              <div>
-                Your Current balance is {user.balance}{" "}
-                <p>Adjust your bet with +/-</p>
+              <div className="bet-button-group">
+                <button onClick={() => changeColorBetSize(-20)}>-20</button>
+                <button onClick={() => changeColorBetSize(20)}>+20</button>
               </div>
-            </>
-          )}
-        </div>
-      </div>
-      {/* Color Betting Controls Container */}
-      <div className="betting-controls-container-color">
-        Color Betting
-        {/* Color Betting */}
-        <div className="color-betting">
-          <div className="selection-group-color">
-            <button onClick={() => setSelectedColor("None")}>None</button>
-            <button onClick={() => setSelectedColor("red")}>Red</button>
-            <button onClick={() => setSelectedColor("black")}>Black</button>
-          </div>
-          <p>Selected Color: {selectedColor}</p>
-          <div className="bet-size-selector-color">
-            <div className="bet-button-group">
-              <button onClick={() => changeColorBetSize(-10)}>-10</button>
-              <button onClick={() => changeColorBetSize(10)}>+10</button>
+              <div className="bet-button-group">
+                <button onClick={() => changeColorBetSize(-50)}>-50</button>
+                <button onClick={() => changeColorBetSize(50)}>+50</button>
+              </div>
+              <div className="bet-button-group">
+                <button onClick={() => changeColorBetSize(-100)}>-100</button>
+                <button onClick={() => changeColorBetSize(100)}>+100</button>
+              </div>
+              <p>Color Bet Amount: ${ColorBetSize}</p>
             </div>
-            <div className="bet-button-group">
-              <button onClick={() => changeColorBetSize(-20)}>-20</button>
-              <button onClick={() => changeColorBetSize(20)}>+20</button>
-            </div>
-            <div className="bet-button-group">
-              <button onClick={() => changeColorBetSize(-50)}>-50</button>
-              <button onClick={() => changeColorBetSize(50)}>+50</button>
-            </div>
-            <div className="bet-button-group">
-              <button onClick={() => changeColorBetSize(-100)}>-100</button>
-              <button onClick={() => changeColorBetSize(100)}>+100</button>
-            </div>
-            <p>Color Bet Amount: ${ColorBetSize}</p>
           </div>
         </div>
-      </div>
 
-      {/* Number Betting Controls Container */}
-      <div className="betting-controls-container-number">
-        Number Betting
-        {/* Number Betting */}
-        <div className="number-betting">
-          <input
-            type="number"
-            placeholder="Enter a number (0-36)"
-            value={selectedNumber}
-            onChange={handleNumberChange}
-            className="number-input"
-          />
-          <p>Selected Number: {selectedNumber}</p>
-          <div className="bet-size-selector-number">
-            <div className="bet-button-group">
-              <button onClick={() => changeNumberBetSize(-10)}>-10</button>
-              <button onClick={() => changeNumberBetSize(10)}>+10</button>
+        <div className="betting-controls-container-number">
+          Number Betting
+          <div className="number-betting">
+            <input
+              type="number"
+              placeholder="Enter a number (0-36)"
+              value={selectedNumber}
+              onChange={handleNumberChange}
+              className="number-input"
+            />
+            <p>Selected Number: {selectedNumber}</p>
+            <div className="bet-size-selector-number">
+              <div className="bet-button-group">
+                <button onClick={() => changeNumberBetSize(-10)}>-10</button>
+                <button onClick={() => changeNumberBetSize(10)}>+10</button>
+              </div>
+              <div className="bet-button-group">
+                <button onClick={() => changeNumberBetSize(-20)}>-20</button>
+                <button onClick={() => changeNumberBetSize(20)}>+20</button>
+              </div>
+              <div className="bet-button-group">
+                <button onClick={() => changeNumberBetSize(-50)}>-50</button>
+                <button onClick={() => changeNumberBetSize(50)}>+50</button>
+              </div>
+              <div className="bet-button-group">
+                <button onClick={() => changeNumberBetSize(-100)}>-100</button>
+                <button onClick={() => changeNumberBetSize(100)}>+100</button>
+              </div>
+              <p>Number Bet Amount: ${NumberBetSize}</p>
             </div>
-            <div className="bet-button-group">
-              <button onClick={() => changeNumberBetSize(-20)}>-20</button>
-              <button onClick={() => changeNumberBetSize(20)}>+20</button>
-            </div>
-            <div className="bet-button-group">
-              <button onClick={() => changeNumberBetSize(-50)}>-50</button>
-              <button onClick={() => changeNumberBetSize(50)}>+50</button>
-            </div>
-            <div className="bet-button-group">
-              <button onClick={() => changeNumberBetSize(-100)}>-100</button>
-              <button onClick={() => changeNumberBetSize(100)}>+100</button>
-            </div>
-            <p>Number Bet Amount: ${NumberBetSize}</p>
           </div>
         </div>
-      </div>
 
-      {/* Wheel and Arrow Container */}
-      <div className="wheel-and-arrow-container">
-        <FontAwesomeIcon icon={faArrowRight} className="roulette-arrow" />
-        <div className="roulette-wheel" ref={wheelRef}>
-          {europeanWheelNumbers.map((number, i) => (
-            <div
-              key={i}
-              className={`roulette-number ${numberColors[number]}`}
-              style={{ "--angle": `${i * (360 / 37)}deg` }}
-              data-number={number}
-            ></div>
-          ))}
+        <div className="wheel-and-arrow-container">
+
+          <FontAwesomeIcon icon={faArrowRight} className="roulette-arrow" />
+          <div className="roulette-wheel" ref={wheelRef}>
+
+            {winningInfo.number !== null && (
+              <div className={`winning-info ${winningInfo.color}`} style={winningInfoStyle}>
+                <p>Winning Number: {winningInfo.number}</p>
+                <p>Winning Color: {winningInfo.color}</p>
+                <p>Winnings: ${currentWin}</p>
+              </div>
+            )}
+
+            {europeanWheelNumbers.map((number, i) => (
+              <div
+                key={i}
+                className={`roulette-number ${numberColors[number]}`}
+                style={{ "--angle": `${i * (360 / 37)}deg` }}
+                data-number={number}
+              ></div>
+            ))}
+          </div>
         </div>
+
+        <button
+          className="spin-button"
+          onClick={spinWheel}
+          disabled={
+            isSpinning ||
+            (user &&
+              (ColorBetSize > user.balance || NumberBetSize > user.balance))
+          }
+        >
+          Spin
+        </button>
       </div>
-
-      {/* Winning Info Display */}
-      {winningInfo.number !== null && (
-        <div className={`winning-info ${winningInfo.color}`}>
-          <p>Winning Number: {winningInfo.number}</p>
-          <p>Winning Color: {winningInfo.color}</p>
-          <p>Winnings: ${currentWin}</p>
-        </div>
-      )}
-
-      {/* Spin Button */}
-      <button
-        onClick={spinWheel}
-        disabled={
-          isSpinning ||
-          (user &&
-            (ColorBetSize > user.balance || NumberBetSize > user.balance))
-        }
-      >
-        Spin
-      </button>
-    </div>
+    </>
   );
 };
 
