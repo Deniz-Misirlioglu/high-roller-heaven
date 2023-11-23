@@ -1,9 +1,5 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import axios from "axios";
-import AuthorizedUserContext from "../Authentication/AuthorizeUser";
-import bcrypt from "bcryptjs";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../SlotComponent/Slot.css";

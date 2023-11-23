@@ -69,7 +69,7 @@ const Home = (props) => {
       };
 
       const response = await axios.post(
-        "http://localhost:3001/postCustomers/" + user._id,
+        "http://localhost:3001/postCustomers/changeBalance/" + user._id,
         post
       );
 
@@ -98,9 +98,8 @@ const Home = (props) => {
             <div>Your Current balance is {user.balance}</div>
 
             <button
-              className={`button-85 ${
-                !allowedToRefill ? "disabled-button" : ""
-              }`}
+              className={`button-85 ${!allowedToRefill ? "disabled-button" : ""
+                }`}
               onClick={refillUserBalance}
               disabled={!allowedToRefill}
             >

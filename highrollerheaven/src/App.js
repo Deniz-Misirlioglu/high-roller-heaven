@@ -5,6 +5,7 @@ import Login from "./Components/LoginComponent/Login";
 import Home from "./Components/HomeComponent/Home";
 import Navbar from "./Components/NavBarComponent/Navbar";
 import Slot from "./Components/SlotComponent/Slot";
+import Roulette from "./Components/RouletteComponent/Roulette";
 import Blackjack from "./Components/BlackjackComponent/Blackjack";
 
 import {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/home" element={<NavBarHome />} />
         <Route exact path="/navbar" element={<Navbar />}></Route>
         <Route exact path="/slot" element={<NavbarSlot />}></Route>
+        <Route exact path="/roulette" element={<NavbarRoulette />}></Route>
         <Route exact path="/blackjack" element={<NavBarBlackjack />}></Route>
       </Routes>
     </div>
@@ -44,6 +46,15 @@ function NavbarSlot() {
     <>
       <Navbar />
       <Slot />
+    </>
+  );
+}
+
+function NavbarRoulette() {
+  return (
+    <>
+      <Navbar />
+      <Roulette />
     </>
   );
 }
