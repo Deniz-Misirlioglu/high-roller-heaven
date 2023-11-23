@@ -24,16 +24,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Adjust other properties as necessary */
 }
 
 .roulette-arrow {
   position: relative;
   font-size: 40px;
-  /* Adjust the size as needed */
-  /* Centers the arrow vertically */
   left: -1%;
-  /* Negative value to position the arrow outside the wheel */
   z-index: 2000;
 }
 
@@ -109,7 +105,6 @@
   }
 }
 
-/* Media queries to adjust layout for smaller screens */
 @media (max-width: 768px) {
   .roulette-container {
     flex-direction: column;
@@ -159,10 +154,8 @@
 .betting-controls-container-number {
   position: absolute;
   left: 5%;
-  /* Adjust as per your layout */
   top: 65%;
   transform: translateY(-50%);
-  /* To vertically center */
   background-color: #e9e7e4;
   border-radius: 5px;
   box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
