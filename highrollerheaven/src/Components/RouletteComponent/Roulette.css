@@ -108,13 +108,13 @@
 /*Color betting container logic*/
 .betting-controls-container-color {
   position: absolute;
-  left: 20%; /* Adjust as per your layout */
-  top: 30%;
-  transform: translateY(-50%); /* To vertically center */
+  left: 20%;
+  top: 50%;
+  transform: translateY(-50%);
   background-color: #e9e7e4;
   border-radius: 5px;
   box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 29px;
   font-size: 1em;
   font-weight: bold;
   color: #333;
@@ -145,7 +145,7 @@
 .betting-controls-container-number {
   position: absolute;
   left: 5%; /* Adjust as per your layout */
-  top: 30.8%;
+  top: 50%;
   transform: translateY(-50%); /* To vertically center */
   background-color: #e9e7e4;
   border-radius: 5px;
@@ -185,4 +185,21 @@
   border: 2px solid #ccc;
   border-radius: 5px;
   text-align: center;
+}
+
+/* User table*/
+
+.user-table-roulette {
+  position: absolute;
+  left: 7%;
+  top: 15%;
+  transform: translateY(-50%);
+  background-color: #e9e7e4;
+  border-radius: 5px;
+  box-shadow: 0 5px 9px rgba(0, 0, 0, 0.1);
+  padding: 29px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #333;
+  z-index: 1000;
 }
