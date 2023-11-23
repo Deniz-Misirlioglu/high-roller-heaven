@@ -12,8 +12,8 @@ const Roulette = () => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [ColorBetSize, setColorBetSize] = useState(0);
   const [NumberBetSize, setNumberBetSize] = useState(0);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedNumber, setSelectedNumber] = useState(null);
+  const [selectedColor, setSelectedColor] = useState("None");
+  const [selectedNumber, setSelectedNumber] = useState("None");
   const [mongoData, setMongoData] = useState([]);
   const [user, setUser] = useState(null);
   const [currentWin, setCurrentWin] = useState(0);
@@ -22,6 +22,11 @@ const Roulette = () => {
     0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5,
     24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26,
   ];
+
+  // const europeanWheelNumbers = [
+  //   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  //   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  // ];
 
   const numberColors = {
     0: "green",
@@ -107,30 +112,37 @@ const Roulette = () => {
 
   const spinWheel = () => {
     // Check betting conditions before spinning
-    if (selectedNumber === null && NumberBetSize > 0) {
-      alert(
-        "You must choose a number or set the number bet amount to zero to spin the wheel."
-      );
-      return;
-    } else if (selectedNumber != null && NumberBetSize === 0) {
+    if (
+      (selectedNumber === "" || selectedNumber === null) &&
+      NumberBetSize > 0
+    ) {
       alert(
         "You must choose a number or set the number bet amount to zero to spin the wheel."
       );
       return;
     }
-    if (selectedColor === null && ColorBetSize > 0) {
+    if (selectedNumber === null && NumberBetSize > 0) {
+      alert(
+        "You must choose a number or set the number bet amount to zero to spin the wheel."
+      );
+      return;
+    }
+
+    if (selectedColor === "None" && ColorBetSize > 0) {
       alert(
         "You must choose a color or set the color bet amount to zero to spin the wheel."
       );
       return;
     }
     if (ColorBetSize === 0 && NumberBetSize === 0) {
-      alert("You must increase bet size on either color or number bet.");
+      alert(
+        "You must increase bet size on either color or number bet to spin the wheel."
+      );
       return;
     }
     // if color bet size is 0, unselect color
     if (ColorBetSize === 0) {
-      setSelectedColor("");
+      setSelectedColor("None");
     }
     changeUserBalance((ColorBetSize + NumberBetSize) * -1);
     setIsSpinning(true); // Disable the button
@@ -150,15 +162,11 @@ const Roulette = () => {
 
       const winningNumber = europeanWheelNumbers[index];
       const winningColor = numberColors[winningNumber];
-      if (winningColor === selectedColor) {
-        changeUserBalance(ColorBetSize * 2);
-      }
-      if (winningNumber === selectedNumber) {
-        changeUserBalance(NumberBetSize * 35);
-      }
       const winnings = calculateWinnings(winningNumber, winningColor);
-      changeUserBalance(winnings - (ColorBetSize + NumberBetSize)); // Adjust the user balance
       setCurrentWin(winnings); // Set the current winnings
+      if (winnings > 0) {
+        changeUserBalance(winnings - ColorBetSize - NumberBetSize);
+      }
       setWinningInfo({ number: winningNumber, color: winningColor });
       if (wheelRef.current) {
         wheelRef.current.style.transition = "none";
@@ -173,7 +181,7 @@ const Roulette = () => {
     let winnings = 0;
 
     // Calculate winnings for color bet
-    if (selectedColor && winningColor === selectedColor) {
+    if (winningColor === selectedColor) {
       winnings += ColorBetSize * 2;
     }
 
@@ -181,7 +189,6 @@ const Roulette = () => {
     if (selectedNumber !== null && winningNumber === parseInt(selectedNumber)) {
       winnings += NumberBetSize * 35;
     }
-
     return winnings;
   };
 
@@ -242,8 +249,11 @@ const Roulette = () => {
         Color Betting
         {/* Color Betting */}
         <div className="color-betting">
-          <button onClick={() => setSelectedColor("red")}>Red</button>
-          <button onClick={() => setSelectedColor("black")}>Black</button>
+          <div className="selection-group-color">
+            <button onClick={() => setSelectedColor("None")}>None</button>
+            <button onClick={() => setSelectedColor("red")}>Red</button>
+            <button onClick={() => setSelectedColor("black")}>Black</button>
+          </div>
           <p>Selected Color: {selectedColor}</p>
           <div className="bet-size-selector-color">
             <div className="bet-button-group">
@@ -262,7 +272,7 @@ const Roulette = () => {
               <button onClick={() => changeColorBetSize(-100)}>-100</button>
               <button onClick={() => changeColorBetSize(100)}>+100</button>
             </div>
-            <p>Color Bet Amount: {ColorBetSize}</p>
+            <p>Color Bet Amount: ${ColorBetSize}</p>
           </div>
         </div>
       </div>
@@ -297,7 +307,7 @@ const Roulette = () => {
               <button onClick={() => changeNumberBetSize(-100)}>-100</button>
               <button onClick={() => changeNumberBetSize(100)}>+100</button>
             </div>
-            <p>Number Bet Amount: {NumberBetSize}</p>
+            <p>Number Bet Amount: ${NumberBetSize}</p>
           </div>
         </div>
       </div>
@@ -321,7 +331,7 @@ const Roulette = () => {
       {winningInfo.number !== null && (
         <div className={`winning-info ${winningInfo.color}`}>
           <p>Winning Number: {winningInfo.number}</p>
-          <p>Color: {winningInfo.color}</p>
+          <p>Winning Color: {winningInfo.color}</p>
           <p>Winnings: ${currentWin}</p>
         </div>
       )}
