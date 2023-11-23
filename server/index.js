@@ -59,6 +59,39 @@ app.post("/postCustomers/:userId", async (req, res) => {
   }
 });
 
+app.post("/postCustomers/changeBalance/:userId", async (req, res) => {
+
+  try {
+    const userId = req.params.userId;
+    const postData = req.body;
+
+    const user = await UserModel.findById(userId);
+
+    const amount = postData.amount;
+    const date = postData.date;
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const newPost = {
+      content: postData.content,
+    };
+    user.balance += amount;
+
+    user.refillBalanceTime = date;
+
+
+    user.posts.push(newPost);
+
+    await user.save();
+
+    res.status(201).json(newPost);
+
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while creating the post.' });
+  }
+});
+
 app.listen(3001, () => {
   console.log("server is RUNNING");
 });
