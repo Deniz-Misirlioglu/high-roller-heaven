@@ -1,3 +1,5 @@
+.blackjack .title1 {}
+
 .card {
   width: 100px;
   height: 150px;
@@ -22,15 +24,19 @@
 .deck {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center the deck horizontally */
-  align-items: center; /* Center the deck vertically */
+  justify-content: center;
+  /* Center the deck horizontally */
+  align-items: center;
+  /* Center the deck vertically */
 }
 
 .player-hand,
 .dealer-hand {
   display: flex;
-  justify-content: center; /* Center the hands horizontally */
-  align-items: center; /* Center the hands vertically */
+  justify-content: center;
+  /* Center the hands horizontally */
+  align-items: center;
+  /* Center the hands vertically */
 }
 
 .betting-section button,
@@ -39,7 +45,7 @@
 }
 
 .blackjack {
-  margin-top: 100px;
+  margin-top: 0px;
   align-items: center;
   justify-content: center;
   z-index: 0;
@@ -66,4 +72,28 @@
   border-radius: 5px;
   background-color: #fff;
   cursor: pointer;
+}
+
+.player-section,
+.dealer-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  /* Adjust this value for the desired spacing between player and dealer */
+}
+
+.player-hand,
+.dealer-hand {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
+  overflow-x: auto;
+}
+
+.game-area {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  gap: 0px;
 }

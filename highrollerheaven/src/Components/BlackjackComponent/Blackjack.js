@@ -189,7 +189,7 @@ const Blackjack = () => {
       return;
     }
     const dealerHandCopy = [...dealerHand];
-    while (calculateHandValue(dealerHandCopy) < 19) {
+    while (calculateHandValue(dealerHandCopy) <= 17) {
       const card = deck.pop();
       dealerHandCopy.push(card);
     }
@@ -280,7 +280,8 @@ const Blackjack = () => {
     <div className="blackjack">
       {user && (
         <div>
-          <h1>Blackjack</h1>
+
+          <h1 className="title1">High Roller Heaven</h1>
           <div className="bet-button-container">
             <div className="">
               <button
@@ -403,42 +404,48 @@ const Blackjack = () => {
 
           <p>Bet Amount: {betAmount}</p>
           <p>Total Balance: {user.balance}</p>
-          <div className="player-section">
-            <h2>Player: ({calculateHandValue(playerHand)})</h2>
-            <div className="player-hand">
-              {playerHand.map((card, index) => (
-                <Card key={index} suit={card.suit} rank={card.rank} />
-              ))}
+
+
+          <div className="game-area">
+            <div className="player-section">
+              <h2>Player: ({calculateHandValue(playerHand)})</h2>
+              <div className="player-hand">
+                {playerHand.map((card, index) => (
+                  <Card key={index} suit={card.suit} rank={card.rank} />
+                ))}
+              </div>
+            </div>
+            <div className="dealer-section">
+              {onlyFirstCard ? (
+                <div className="dealer-section">
+                  <div>{secondCardFace.rank}</div>
+                  <h2>Dealer: N/A </h2>
+                  <div className="dealer-hand">
+                    {dealerHand.map((card, index) => (
+                      <Card
+                        key={index}
+                        suit={index === 1 ? null : card.faceDown}
+                        rank={index === 1 ? null : card.rank}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="dealer-section">
+                  <h2>Dealer: ({calculateHandValue(dealerHand)})</h2>
+                  <div className="dealer-hand">
+                    {dealerHand.map((card, index) => (
+                      <Card
+                        key={index}
+                        suit={index === 1 ? card.faceDown : card.faceDown}
+                        rank={index === 1 ? card.rank : card.rank}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-          {onlyFirstCard ? (
-            <div className="dealer-section">
-              <div>{secondCardFace.rank}</div>
-              <h2>Dealer: N/A </h2>
-              <div className="dealer-hand">
-                {dealerHand.map((card, index) => (
-                  <Card
-                    key={index}
-                    suit={index === 1 ? null : card.faceDown}
-                    rank={index === 1 ? null : card.rank}
-                  />
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="dealer-section">
-              <h2>Dealer: ({calculateHandValue(dealerHand)})</h2>
-              <div className="dealer-hand">
-                {dealerHand.map((card, index) => (
-                  <Card
-                    key={index}
-                    suit={index === 1 ? card.faceDown : card.faceDown}
-                    rank={index === 1 ? card.rank : card.rank}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
           {gameOver && (
             <div className="end-game-prompt">
               <p>{gameResult}</p>
