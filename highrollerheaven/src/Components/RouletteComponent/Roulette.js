@@ -252,7 +252,7 @@ const Roulette = () => {
           </div>
         </div>
         <div className="betting-controls-container-color">
-          Color Betting
+          Color Betting<br></br>Win 2x Your Bet!
           <div className="color-betting">
             <div className="selection-group-color">
               <button
@@ -292,7 +292,7 @@ const Roulette = () => {
         </div>
 
         <div className="betting-controls-container-number">
-          Number Betting
+          Number Betting <br></br>Win 35x Your Bet!
           <div className="number-betting">
             <input
               type="number"
