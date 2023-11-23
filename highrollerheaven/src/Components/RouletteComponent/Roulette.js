@@ -230,7 +230,7 @@ const Roulette = () => {
 
   const winningInfoStyle = {
     transform: `rotate(${-wheelRotationAngle}deg)`,
-  }
+  };
 
   return (
     <>
@@ -255,9 +255,18 @@ const Roulette = () => {
           Color Betting
           <div className="color-betting">
             <div className="selection-group-color">
-              <button onClick={() => setSelectedColor("Red")} style={{ backgroundColor: 'red' }}>Red</button>
-              <button onClick={() => setSelectedColor("Black")} style={{ backgroundColor: 'black' }}>Black</button>
-
+              <button
+                onClick={() => setSelectedColor("red")}
+                style={{ backgroundColor: "red" }}
+              >
+                Red
+              </button>
+              <button
+                onClick={() => setSelectedColor("black")}
+                style={{ backgroundColor: "black" }}
+              >
+                Black
+              </button>
             </div>
             <p>Selected Color: {selectedColor}</p>
             <div className="bet-size-selector-color">
@@ -316,12 +325,13 @@ const Roulette = () => {
         </div>
 
         <div className="wheel-and-arrow-container">
-
           <FontAwesomeIcon icon={faArrowRight} className="roulette-arrow" />
           <div className="roulette-wheel" ref={wheelRef}>
-
             {winningInfo.number !== null && (
-              <div className={`winning-info ${winningInfo.color}`} style={winningInfoStyle}>
+              <div
+                className={`winning-info ${winningInfo.color}`}
+                style={winningInfoStyle}
+              >
                 <p>Winning Number: {winningInfo.number}</p>
                 <p>Winning Color: {winningInfo.color}</p>
                 <p>Winnings: ${currentWin}</p>
