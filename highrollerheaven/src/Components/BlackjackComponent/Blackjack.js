@@ -280,7 +280,6 @@ const Blackjack = () => {
     <div className="blackjack">
       {user && (
         <div>
-
           <h1 className="title1">High Roller Heaven</h1>
           <div className="bet-button-container">
             <div className="">
@@ -393,7 +392,9 @@ const Blackjack = () => {
             </div>
           </div>
           <div className="game-controls">
-            <button onClick={deal}>Deal</button>
+            <button onClick={deal} disabled={cardsDealt}>
+              Deal
+            </button>
             <button onClick={hit} disabled={!cardsDealt}>
               Hit
             </button>
@@ -404,7 +405,6 @@ const Blackjack = () => {
 
           <p>Bet Amount: {betAmount}</p>
           <p>Total Balance: {user.balance}</p>
-
 
           <div className="game-area">
             <div className="player-section">
