@@ -424,7 +424,7 @@ const Blackjack = () => {
                     {dealerHand.map((card, index) => (
                       <Card
                         key={index}
-                        suit={index === 1 ? null : card.faceDown}
+                        suit={index === 1 ? null : card.suit}
                         rank={index === 1 ? null : card.rank}
                       />
                     ))}
@@ -437,7 +437,7 @@ const Blackjack = () => {
                     {dealerHand.map((card, index) => (
                       <Card
                         key={index}
-                        suit={index === 1 ? card.faceDown : card.faceDown}
+                        suit={index === 1 ? card.suit : card.suit}
                         rank={index === 1 ? card.rank : card.rank}
                       />
                     ))}
