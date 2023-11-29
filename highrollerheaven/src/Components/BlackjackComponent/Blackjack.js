@@ -189,7 +189,7 @@ const Blackjack = () => {
       return;
     }
     const dealerHandCopy = [...dealerHand];
-    while (calculateHandValue(dealerHandCopy) <= 17) {
+    while (calculateHandValue(dealerHandCopy) < 17) {
       const card = deck.pop();
       dealerHandCopy.push(card);
     }
