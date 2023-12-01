@@ -3,7 +3,8 @@ import axios from "axios";
 import AuthorizedUserContext from "../Authentication/AuthorizeUser";
 import bcrypt from "bcryptjs";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";import Card from "../BlackjackComponent/Card";
+import { useNavigate } from "react-router-dom";
+import Card from "../BlackjackComponent/Card";
 import "./HiLo.css";
 import { useLocation } from "react-router-dom";
 
@@ -102,6 +103,7 @@ const HiLo = () => {
     }
   };
 
+  // Randomizes order of cards in deck
   function shuffleDeck(array) {
     let len = array.length,
       currentIndex;
@@ -115,7 +117,7 @@ const HiLo = () => {
   }
 
   // Draws next card, checks if the high bet successful, sets that drawn card to currentCard
-  // Returns if bet successful.  
+  // Pays out if bet is successful, resets bet amount to 0 for next round.
   const processHighBet = () => {
     var newCard = deck.pop();
     changeUserBalance(-1 * bet);
@@ -123,20 +125,21 @@ const HiLo = () => {
     // Result is if the rank is higher in the next card
     var result = (ranks.indexOf(currentCard.rank) < ranks.indexOf(newCard.rank)) 
       ? true : false;
-
+    // Sets the new card to the one we just drew. 
     drawCard(newCard);
     if (result) {
+      // Use math.floor to ensure new balance is an integer
       changeUserBalance(Math.floor((highOdds - 1) * bet));
     }
     setBet(0);
   }
 
   // Draws next card, checks if the low bet successful, sets that drawn card to currentCard
-  // Returns if bet successful.
+  // Pays out if bet is successful, resets bet amount to 0 for next round.
   const processLowBet = () => {
     var newCard = deck.pop();
     changeUserBalance(-1 * bet);
-
+    
     // Result is if the rank is lower in the next card
     var result = (ranks.indexOf(currentCard.rank) > ranks.indexOf(newCard.rank)) 
       ? true : false;
@@ -144,11 +147,14 @@ const HiLo = () => {
     // Set current card to the one we drew.
     drawCard(newCard);
     if (result) {
+      // Use math.floor to ensure new balance is an integer
       changeUserBalance(Math.floor((lowOdds - 1) * bet));
     }
     setBet(0);
   }
 
+  // Draws next card, checks if the tie bet successful, sets that drawn card to currentCard
+  // Pays out if bet is successful, resets bet amount to 0 for next round.
   const processTieBet = () => {
     var newCard = deck.pop();
     changeUserBalance(-1 * bet);
@@ -160,12 +166,14 @@ const HiLo = () => {
     // Set current card to the one we drew.
     drawCard(newCard);
     if (result) {
+      // Use math.floor to ensure new balance is an integer
       changeUserBalance(Math.floor((tieOdds - 1) * bet));
     }
     setBet(0);
   }
 
-  // All of the possible odds
+  // All of the possible odds (Each spot corresponds to the ascending rank of card)
+  // Only 12 odds bc can't bet high and low on the highest and lowest cards.
   const AllLoOdds = [12.0, 5.0, 3.0, 3.0, 2.0, 1.8, 1.5, 1.4, 1.3, 1.2, 1.1, 1.0];
   const AllHiOdds = [1.0, 1.1, 1.2, 1.4, 1.4, 1.5, 1.8, 2.0, 3.0, 4.0, 5.0, 12.0];
   const tieOdds = 12.5;
@@ -192,8 +200,9 @@ const HiLo = () => {
   }
 
   // Handles altering bets with buttons/input
+  // Set is false by default, only true when entering custom bet.
   const alterBet = (size, set = false) => {
-    // We need to know if the 
+    // We need to know if the bet size is negative
     if (size < 0) {
       if (bet - size < 0) {
         alert("Bet can't be negative.")
@@ -228,7 +237,6 @@ const HiLo = () => {
         {gameStarted && (
           <div className="game">
             <Card suit={currentCard.suit} rank={currentCard.rank} />
-            {/* TODO: Display balance, current bet */}
             <div className="choice">
               {/* If you have an ace, can't bet high */}
               {ranks.indexOf(currentCard.rank) !== 12 && 
@@ -255,6 +263,7 @@ const HiLo = () => {
               <h3>Current Bet: {bet}</h3>
               <label>Custom Bet: </label>
               <input onChange={(e) => {setTypedBet(parseInt(e.target.value))}}></input>
+              {/* We make sure something is typed in the input before it's made a bet */}
               <button onClick={() => {(!isNaN(typedBet)) && alterBet(typedBet, true)}}>SET</button>
               <br></br>
               <button onClick={() => {alterBet(10)}}>+10</button>
