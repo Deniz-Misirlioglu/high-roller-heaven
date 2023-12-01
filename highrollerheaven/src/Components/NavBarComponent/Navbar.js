@@ -88,6 +88,15 @@ const Navbar = () => {
               </div>
             </li>
             <li>
+              <div
+                className="nav-link"
+                onClick={() => navigateToHilo(userId)}
+              >
+                <FontAwesomeIcon icon={faDice} />
+                <span>HiLo</span>
+              </div>
+            </li>
+            <li>
               <Link to="/account">
                 <FontAwesomeIcon icon={faUser} />
                 <span> Account</span>

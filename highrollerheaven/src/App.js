@@ -28,7 +28,7 @@ function App() {
         <Route exact path="/slot" element={<NavbarSlot />}></Route>
         <Route exact path="/roulette" element={<NavbarRoulette />}></Route>
         <Route exact path="/blackjack" element={<NavBarBlackjack />}></Route>
-        <Route exact path="/hilo" element={<HiLo />}></Route>
+        <Route exact path="/hilo" element={<NavBarHilo />}></Route>
       </Routes>
     </div>
   );
