@@ -126,7 +126,7 @@ const HiLo = () => {
 
     drawCard(newCard);
     if (result) {
-      changeUserBalance((highOdds - 1) * bet);
+      changeUserBalance(Math.floor((highOdds - 1) * bet));
     }
     setBet(0);
   }
@@ -144,7 +144,7 @@ const HiLo = () => {
     // Set current card to the one we drew.
     drawCard(newCard);
     if (result) {
-      changeUserBalance((lowOdds - 1) * bet);
+      changeUserBalance(Math.floor((lowOdds - 1) * bet));
     }
     setBet(0);
   }
@@ -160,7 +160,7 @@ const HiLo = () => {
     // Set current card to the one we drew.
     drawCard(newCard);
     if (result) {
-      changeUserBalance((tieOdds - 1) * bet);
+      changeUserBalance(Math.floor((tieOdds - 1) * bet));
     }
     setBet(0);
   }
@@ -255,7 +255,7 @@ const HiLo = () => {
               <h3>Current Bet: {bet}</h3>
               <label>Custom Bet: </label>
               <input onChange={(e) => {setTypedBet(parseInt(e.target.value))}}></input>
-              <button onClick={() => {alterBet(typedBet, true)}}>SET</button>
+              <button onClick={() => {(!isNaN(typedBet)) && alterBet(typedBet, true)}}>SET</button>
               <br></br>
               <button onClick={() => {alterBet(10)}}>+10</button>
               <button onClick={() => {alterBet(50)}}>+50</button>
