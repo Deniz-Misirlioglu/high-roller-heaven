@@ -21,7 +21,7 @@
 }
 
 .login .screen {
-  background: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
+  background-color: #1a2c38;
   position: absolute;
   height: 600px;
   width: 360px;
@@ -103,4 +103,54 @@
 
 .login .line {
   display: inline-block;
+}
+
+h1{
+  color:#f9fafa;
+  font-size: 25px;
+  font-family:verdana;
+}
+
+label[for="username"] {
+  color:#bec5d6;
+  font-size: 20px;
+  margin-right: 185px;
+}
+
+label[for="password"] {
+  color:#bec5d6;
+  font-size: 20px;
+  margin-right: 185px;
+  margin-top: 30px;
+}
+
+.login__field {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.login__field button {
+  width: 150px;
+  margin: auto;
+  margin-top: 30px;
+  background-color: #00cce7;
+  color: #000000;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login__field button:hover {
+  background-color: #005f7f;
+}
+
+p {
+  color: white;
+}
+
+.line {
+  margin-top: 10px;
 }

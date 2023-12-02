@@ -60,13 +60,16 @@ const Login = () => {
           navigate("/home", { replace: true, state: { userAccount: userId } });
         }
       }
+      else{
+        alert("Incorrect Login Information");
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
   return (
     <>
-      <h1 className="title1">High Roller Heaven</h1>
+      <h1 >High Roller Heaven</h1>
       <div className="login">
         {success ? (
           <section>
@@ -115,7 +118,7 @@ const Login = () => {
                   </form>
                   <p>
                     Need an Account?
-                    <br />
+                    <br></br>
                     <span className="line">
                       <Link to="/Register">Register</Link>
                     </span>
