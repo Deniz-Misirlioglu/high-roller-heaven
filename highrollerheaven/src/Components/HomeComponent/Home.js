@@ -88,18 +88,18 @@ const Home = (props) => {
 
   return (
     <>
+      <h1 className="title1">High Roller Heaven</h1>
       <div className="home">
-        <div className="vertical">
-          <h1 className="title">High Roller Heaven</h1>
-        </div>
+        <div className="vertical"></div>
         {user && (
           <>
             <div>Welcome {user.username}</div>
             <div>Your Current balance is {user.balance}</div>
 
             <button
-              className={`button-85 ${!allowedToRefill ? "disabled-button" : ""
-                }`}
+              className={`button-85 ${
+                !allowedToRefill ? "disabled-button" : ""
+              }`}
               onClick={refillUserBalance}
               disabled={!allowedToRefill}
             >

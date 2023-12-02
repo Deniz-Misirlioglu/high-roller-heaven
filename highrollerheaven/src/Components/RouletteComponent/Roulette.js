@@ -19,6 +19,7 @@ const Roulette = () => {
   const [currentWin, setCurrentWin] = useState(0);
   const [wheelRotationAngle, setWheelRotationAngle] = useState(0);
 
+  const [gameStarted, setGameStarted] = useState(false);
   const europeanWheelNumbers = [
     0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5,
     24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26,
@@ -235,131 +236,175 @@ const Roulette = () => {
   return (
     <>
       <h1 className="title1">High Roller Heaven</h1>
+      <div className="rules">
+        {!gameStarted && <h1>Welcome to Roullete!</h1>}
+        {!gameStarted && <h2>Read rules before playing!</h2>}
+        {!gameStarted && (
+          <p className="prol">
+            Roulette is a classic casino game played on a wheel marked with
+            numbers from 0 to 3, alternating between red and black colors.
+            Players bet on where a small ball will land after the wheel spins.
+            Bets can be placed on specific numbers, groups of numbers, colors
+            (red or black), odd or even numbers, or ranges. Once bets are
+            placed, the dealer spins the wheel, and the ball is spun in the
+            opposite direction. If the ball lands on a number or category a
+            player bet on, they win according to the specific odds associated
+            with their bet.
+          </p>
+        )}
+        {!gameStarted && (
+          <button
+            onClick={() => {
+              setGameStarted(true);
+            }}
+          >
+            Start Game!
+          </button>
+        )}
+      </div>
       <div className="roulette-container">
-        <div className="user-table-roulette">
-          <div>
-            {user && (
-              <>
-                <div>
-                  <u>{user.username}</u>
+        {gameStarted && (
+          <>
+            <div className="user-table-roulette">
+              <div>
+                {user && (
+                  <>
+                    <div>
+                      <u>{user.username}</u>
+                    </div>
+                    <div>
+                      Your Current balance is {user.balance}{" "}
+                      <p>Adjust your bet with +/-</p>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+            <div className="betting-controls-container-color">
+              Color Betting<br></br>Win 2x Your Bet!
+              <div className="color-betting">
+                <div className="selection-group-color">
+                  <button
+                    onClick={() => setSelectedColor("red")}
+                    style={{ backgroundColor: "red" }}
+                  >
+                    Red
+                  </button>
+                  <button
+                    onClick={() => setSelectedColor("black")}
+                    style={{ backgroundColor: "black" }}
+                  >
+                    Black
+                  </button>
                 </div>
-                <div>
-                  Your Current balance is {user.balance}{" "}
-                  <p>Adjust your bet with +/-</p>
+                <p>Selected Color: {selectedColor}</p>
+                <div className="bet-size-selector-color">
+                  <div className="bet-button-group">
+                    <button onClick={() => changeColorBetSize(-10)}>-10</button>
+                    <button onClick={() => changeColorBetSize(10)}>+10</button>
+                  </div>
+                  <div className="bet-button-group">
+                    <button onClick={() => changeColorBetSize(-20)}>-20</button>
+                    <button onClick={() => changeColorBetSize(20)}>+20</button>
+                  </div>
+                  <div className="bet-button-group">
+                    <button onClick={() => changeColorBetSize(-50)}>-50</button>
+                    <button onClick={() => changeColorBetSize(50)}>+50</button>
+                  </div>
+                  <div className="bet-button-group">
+                    <button onClick={() => changeColorBetSize(-100)}>
+                      -100
+                    </button>
+                    <button onClick={() => changeColorBetSize(100)}>
+                      +100
+                    </button>
+                  </div>
+                  <p>Color Bet Amount: ${ColorBetSize}</p>
                 </div>
-              </>
-            )}
-          </div>
-        </div>
-        <div className="betting-controls-container-color">
-          Color Betting<br></br>Win 2x Your Bet!
-          <div className="color-betting">
-            <div className="selection-group-color">
-              <button
-                onClick={() => setSelectedColor("red")}
-                style={{ backgroundColor: "red" }}
-              >
-                Red
-              </button>
-              <button
-                onClick={() => setSelectedColor("black")}
-                style={{ backgroundColor: "black" }}
-              >
-                Black
-              </button>
+              </div>
             </div>
-            <p>Selected Color: {selectedColor}</p>
-            <div className="bet-size-selector-color">
-              <div className="bet-button-group">
-                <button onClick={() => changeColorBetSize(-10)}>-10</button>
-                <button onClick={() => changeColorBetSize(10)}>+10</button>
+
+            <div className="betting-controls-container-number">
+              Number Betting <br></br>Win 35x Your Bet!
+              <div className="number-betting">
+                <input
+                  type="number"
+                  placeholder="Enter a number (0-36)"
+                  value={selectedNumber}
+                  onChange={handleNumberChange}
+                  className="number-input"
+                />
+                <p>Selected Number: {selectedNumber}</p>
+                <div className="bet-size-selector-number">
+                  <div className="bet-button-group">
+                    <button onClick={() => changeNumberBetSize(-10)}>
+                      -10
+                    </button>
+                    <button onClick={() => changeNumberBetSize(10)}>+10</button>
+                  </div>
+                  <div className="bet-button-group">
+                    <button onClick={() => changeNumberBetSize(-20)}>
+                      -20
+                    </button>
+                    <button onClick={() => changeNumberBetSize(20)}>+20</button>
+                  </div>
+                  <div className="bet-button-group">
+                    <button onClick={() => changeNumberBetSize(-50)}>
+                      -50
+                    </button>
+                    <button onClick={() => changeNumberBetSize(50)}>+50</button>
+                  </div>
+                  <div className="bet-button-group">
+                    <button onClick={() => changeNumberBetSize(-100)}>
+                      -100
+                    </button>
+                    <button onClick={() => changeNumberBetSize(100)}>
+                      +100
+                    </button>
+                  </div>
+                  <p>Number Bet Amount: ${NumberBetSize}</p>
+                </div>
               </div>
-              <div className="bet-button-group">
-                <button onClick={() => changeColorBetSize(-20)}>-20</button>
-                <button onClick={() => changeColorBetSize(20)}>+20</button>
-              </div>
-              <div className="bet-button-group">
-                <button onClick={() => changeColorBetSize(-50)}>-50</button>
-                <button onClick={() => changeColorBetSize(50)}>+50</button>
-              </div>
-              <div className="bet-button-group">
-                <button onClick={() => changeColorBetSize(-100)}>-100</button>
-                <button onClick={() => changeColorBetSize(100)}>+100</button>
-              </div>
-              <p>Color Bet Amount: ${ColorBetSize}</p>
             </div>
-          </div>
-        </div>
 
-        <div className="betting-controls-container-number">
-          Number Betting <br></br>Win 35x Your Bet!
-          <div className="number-betting">
-            <input
-              type="number"
-              placeholder="Enter a number (0-36)"
-              value={selectedNumber}
-              onChange={handleNumberChange}
-              className="number-input"
-            />
-            <p>Selected Number: {selectedNumber}</p>
-            <div className="bet-size-selector-number">
-              <div className="bet-button-group">
-                <button onClick={() => changeNumberBetSize(-10)}>-10</button>
-                <button onClick={() => changeNumberBetSize(10)}>+10</button>
+            <div className="wheel-and-arrow-container">
+              <FontAwesomeIcon icon={faArrowRight} className="roulette-arrow" />
+              <div className="roulette-wheel" ref={wheelRef}>
+                {winningInfo.number !== null && (
+                  <div
+                    className={`winning-info ${winningInfo.color}`}
+                    style={winningInfoStyle}
+                  >
+                    <p>Winning Number: {winningInfo.number}</p>
+                    <p>Winning Color: {winningInfo.color}</p>
+                    <p>Winnings: ${currentWin}</p>
+                  </div>
+                )}
+
+                {europeanWheelNumbers.map((number, i) => (
+                  <div
+                    key={i}
+                    className={`roulette-number ${numberColors[number]}`}
+                    style={{ "--angle": `${i * (360 / 37)}deg` }}
+                    data-number={number}
+                  ></div>
+                ))}
               </div>
-              <div className="bet-button-group">
-                <button onClick={() => changeNumberBetSize(-20)}>-20</button>
-                <button onClick={() => changeNumberBetSize(20)}>+20</button>
-              </div>
-              <div className="bet-button-group">
-                <button onClick={() => changeNumberBetSize(-50)}>-50</button>
-                <button onClick={() => changeNumberBetSize(50)}>+50</button>
-              </div>
-              <div className="bet-button-group">
-                <button onClick={() => changeNumberBetSize(-100)}>-100</button>
-                <button onClick={() => changeNumberBetSize(100)}>+100</button>
-              </div>
-              <p>Number Bet Amount: ${NumberBetSize}</p>
             </div>
-          </div>
-        </div>
 
-        <div className="wheel-and-arrow-container">
-          <FontAwesomeIcon icon={faArrowRight} className="roulette-arrow" />
-          <div className="roulette-wheel" ref={wheelRef}>
-            {winningInfo.number !== null && (
-              <div
-                className={`winning-info ${winningInfo.color}`}
-                style={winningInfoStyle}
-              >
-                <p>Winning Number: {winningInfo.number}</p>
-                <p>Winning Color: {winningInfo.color}</p>
-                <p>Winnings: ${currentWin}</p>
-              </div>
-            )}
-
-            {europeanWheelNumbers.map((number, i) => (
-              <div
-                key={i}
-                className={`roulette-number ${numberColors[number]}`}
-                style={{ "--angle": `${i * (360 / 37)}deg` }}
-                data-number={number}
-              ></div>
-            ))}
-          </div>
-        </div>
-
-        <button
-          className="spin-button"
-          onClick={spinWheel}
-          disabled={
-            isSpinning ||
-            (user &&
-              (ColorBetSize > user.balance || NumberBetSize > user.balance))
-          }
-        >
-          Spin
-        </button>
+            <button
+              className="spin-button"
+              onClick={spinWheel}
+              disabled={
+                isSpinning ||
+                (user &&
+                  (ColorBetSize > user.balance || NumberBetSize > user.balance))
+              }
+            >
+              Spin
+            </button>
+          </>
+        )}
       </div>
     </>
   );

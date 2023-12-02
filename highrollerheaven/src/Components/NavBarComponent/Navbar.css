@@ -75,12 +75,12 @@ html {
   margin: 0px;
   border-radius: 5px;
   transition: background-color 0.3s;
-  position: fixed; /* Changed from absolute to fixed */
+  position: fixed;
   left: 0;
   top: 0px;
   box-sizing: border-box;
   width: 60px;
-  z-index: 3; /* Ensure the z-index is higher than the content but lower or equal to the navbar */
+  z-index: 3;
 }
 
 .hamburger-btn:hover {
@@ -103,17 +103,17 @@ html {
   background-color: #333;
   padding: 10px 15px;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
-  width: 100%; /* Make it full width */
+  width: 100%;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   display: flex;
-  justify-content: flex-end; /* Logout link on the far right */
+  justify-content: flex-end;
   align-items: center;
   padding: 10px 15px;
-  background-color: #333; /* Or your chosen color */
-  z-index: 1; /* High z-index to ensure it's above other content */
+  background-color: #333;
+  z-index: 1;
 }
 .top-navbar a {
   color: #fff;

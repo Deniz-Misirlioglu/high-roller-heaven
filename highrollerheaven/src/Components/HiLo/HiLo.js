@@ -9,7 +9,6 @@ import "./HiLo.css";
 import { useLocation } from "react-router-dom";
 
 const HiLo = () => {
-
   const suits = ["♠", "♣", "♥", "♦"];
   const ranks = [
     "2",
@@ -42,7 +41,7 @@ const HiLo = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [currentCard, setCurrentCard] = useState([]);
   const [deck, setDeck] = useState([...initialDeck]);
-  
+
   const [balance, setBalance] = useState(0);
   const [bet, setBet] = useState(0);
   const [typedBet, setTypedBet] = useState(0);
@@ -103,7 +102,6 @@ const HiLo = () => {
     }
   };
 
-  // Randomizes order of cards in deck
   function shuffleDeck(array) {
     let len = array.length,
       currentIndex;
@@ -116,33 +114,31 @@ const HiLo = () => {
     return array;
   }
 
-  // Draws next card, checks if the high bet successful, sets that drawn card to currentCard
-  // Pays out if bet is successful, resets bet amount to 0 for next round.
   const processHighBet = () => {
     var newCard = deck.pop();
     changeUserBalance(-1 * bet);
 
-    // Result is if the rank is higher in the next card
-    var result = (ranks.indexOf(currentCard.rank) < ranks.indexOf(newCard.rank)) 
-      ? true : false;
-    // Sets the new card to the one we just drew. 
+    var result =
+      ranks.indexOf(currentCard.rank) < ranks.indexOf(newCard.rank)
+        ? true
+        : false;
     drawCard(newCard);
     if (result) {
       // Use math.floor to ensure new balance is an integer
       changeUserBalance(Math.floor((highOdds - 1) * bet));
     }
     setBet(0);
-  }
+  };
 
-  // Draws next card, checks if the low bet successful, sets that drawn card to currentCard
-  // Pays out if bet is successful, resets bet amount to 0 for next round.
   const processLowBet = () => {
     var newCard = deck.pop();
     changeUserBalance(-1 * bet);
-    
+
     // Result is if the rank is lower in the next card
-    var result = (ranks.indexOf(currentCard.rank) > ranks.indexOf(newCard.rank)) 
-      ? true : false;
+    var result =
+      ranks.indexOf(currentCard.rank) > ranks.indexOf(newCard.rank)
+        ? true
+        : false;
 
     // Set current card to the one we drew.
     drawCard(newCard);
@@ -151,135 +147,214 @@ const HiLo = () => {
       changeUserBalance(Math.floor((lowOdds - 1) * bet));
     }
     setBet(0);
-  }
+  };
 
-  // Draws next card, checks if the tie bet successful, sets that drawn card to currentCard
-  // Pays out if bet is successful, resets bet amount to 0 for next round.
   const processTieBet = () => {
     var newCard = deck.pop();
     changeUserBalance(-1 * bet);
 
     // Result is if the rank is the same in the next card
-    var result = (ranks.indexOf(currentCard.rank) === ranks.indexOf(newCard.rank)) 
-      ? true : false;
+    var result =
+      ranks.indexOf(currentCard.rank) === ranks.indexOf(newCard.rank)
+        ? true
+        : false;
 
-    // Set current card to the one we drew.
     drawCard(newCard);
     if (result) {
-      // Use math.floor to ensure new balance is an integer
       changeUserBalance(Math.floor((tieOdds - 1) * bet));
     }
     setBet(0);
-  }
+  };
 
-  // All of the possible odds (Each spot corresponds to the ascending rank of card)
-  // Only 12 odds bc can't bet high and low on the highest and lowest cards.
-  const AllLoOdds = [12.0, 5.0, 3.0, 3.0, 2.0, 1.8, 1.5, 1.4, 1.3, 1.2, 1.1, 1.0];
-  const AllHiOdds = [1.0, 1.1, 1.2, 1.4, 1.4, 1.5, 1.8, 2.0, 3.0, 4.0, 5.0, 12.0];
+  const AllLoOdds = [
+    12.0, 5.0, 3.0, 3.0, 2.0, 1.8, 1.5, 1.4, 1.3, 1.2, 1.1, 1.0,
+  ];
+  const AllHiOdds = [
+    1.0, 1.1, 1.2, 1.4, 1.4, 1.5, 1.8, 2.0, 3.0, 4.0, 5.0, 12.0,
+  ];
   const tieOdds = 12.5;
 
   // Draws a card, assigns betting odds based on the card.
   const drawCard = (card = deck.pop()) => {
-    // Set our card to be the one we drew
     setCurrentCard(card);
-    // Set our odds accordingly
     setLowOdds(AllLoOdds[ranks.indexOf(card.rank) - 1]);
     setHighOdds(AllHiOdds[ranks.indexOf(card.rank)]);
 
-    // If we've drawn more than half the cards, reshuffle
     if (deck.length <= 26) {
       setDeck(shuffleDeck([...initialDeck]));
     }
-  }
+  };
 
-  // Initializes the game by making the game board, shuffling the deck, drawing first card
   const startGame = () => {
     setGameStarted(true);
     shuffleDeck(deck);
     drawCard();
-  }
+  };
 
-  // Handles altering bets with buttons/input
-  // Set is false by default, only true when entering custom bet.
   const alterBet = (size, set = false) => {
-    // We need to know if the bet size is negative
     if (size < 0) {
       if (bet - size < 0) {
-        alert("Bet can't be negative.")
+        alert("Bet can't be negative.");
       } else {
         set ? alert("Bet can't be negative.") : setBet(bet + size);
       }
     } else {
       if (bet + size > balance) {
-        alert("Your balance isn't high enough.")
+        alert("Your balance isn't high enough.");
       } else {
         set ? setBet(size) : setBet(bet + size);
       }
     }
-  }
+  };
 
-    return (
+  return (
+    <>
+      <h1 className="title1">High Roller Heaven</h1>
       <div className="page">
         <div className="rules">
           {!gameStarted ? <h1>Welcome to Hi-Lo!</h1> : <h1>Hi-Lo</h1>}
           {!gameStarted && <h2>Read rules before playing!</h2>}
-          {!gameStarted && <p>
-            Playing Hi-Lo is very simple; as the player, you 
-            need to bet on whether the next card to be drawn from 
-            the deck will be higher or lower than the current card. 
-            You can also bet on the card being the same value as the current card – 
-            which is known as a tie. Aces are high. The odds, the amount your bet
-            will be multiplied by on winning, is displayed on the button. Cards previously
-            seen will be reshuffled into the deck when half of cards are left.
-          </p>}
-          {!gameStarted && <button onClick={() => {startGame()}}>Start Game!</button>}
+          {!gameStarted && (
+            <p>
+              Playing Hi-Lo is very simple; as the player, you need to bet on
+              whether the next card to be drawn from the deck will be higher or
+              lower than the current card. You can also bet on the card being
+              the same value as the current card – which is known as a tie. Aces
+              are high. The odds, the amount your bet will be multiplied by on
+              winning, is displayed on the button. Cards previously seen will be
+              reshuffled into the deck when half of cards are left.
+            </p>
+          )}
+          {!gameStarted && (
+            <button
+              onClick={() => {
+                startGame();
+              }}
+            >
+              Start Game!
+            </button>
+          )}
         </div>
         {gameStarted && (
           <div className="game">
             <Card suit={currentCard.suit} rank={currentCard.rank} />
             <div className="choice">
-              {/* If you have an ace, can't bet high */}
-              {ranks.indexOf(currentCard.rank) !== 12 && 
-                <button onClick={() => {processHighBet()}} className="hiButton">
+              {ranks.indexOf(currentCard.rank) !== 12 && (
+                <button
+                  onClick={() => {
+                    processHighBet();
+                  }}
+                  className="hiButton"
+                  disabled={bet === 0}
+                >
                   HIGHER <br></br>
                   {highOdds}x
                 </button>
-              }
-              <button onClick={() => {processTieBet()}} className="tieButton">
+              )}
+              <button
+                onClick={() => {
+                  processTieBet();
+                }}
+                className="tieButton"
+                disabled={bet === 0}
+              >
                 TIE <br></br>
                 {tieOdds}x
               </button>
-              {/* If its the lowest card, we won't let you bet low. */}
-              {ranks.indexOf(currentCard.rank) !== 0 && 
-                <button onClick={() => {processLowBet()}} className="loButton">
+              {ranks.indexOf(currentCard.rank) !== 0 && (
+                <button
+                  onClick={() => {
+                    processLowBet();
+                  }}
+                  className="loButton"
+                  disabled={bet === 0}
+                >
                   LOWER <br></br>
                   {lowOdds}x
                 </button>
-              } 
+              )}
             </div>
             <div className="betting">
               <h3>Place your bet!</h3>
               <h3>Your balance: {balance}</h3>
               <h3>Current Bet: {bet}</h3>
               <label>Custom Bet: </label>
-              <input onChange={(e) => {setTypedBet(parseInt(e.target.value))}}></input>
-              {/* We make sure something is typed in the input before it's made a bet */}
-              <button onClick={() => {(!isNaN(typedBet)) && alterBet(typedBet, true)}}>SET</button>
+              <input
+                onChange={(e) => {
+                  setTypedBet(parseInt(e.target.value));
+                }}
+              ></input>
+              <button
+                onClick={() => {
+                  !isNaN(typedBet) && alterBet(typedBet, true);
+                }}
+              >
+                SET
+              </button>
               <br></br>
-              <button onClick={() => {alterBet(10)}}>+10</button>
-              <button onClick={() => {alterBet(50)}}>+50</button>
-              <button onClick={() => {alterBet(100)}}>+100</button>
-              <button onClick={() => {alterBet(250)}}>+250</button>
+              <button
+                onClick={() => {
+                  alterBet(10);
+                }}
+              >
+                +10
+              </button>
+              <button
+                onClick={() => {
+                  alterBet(50);
+                }}
+              >
+                +50
+              </button>
+              <button
+                onClick={() => {
+                  alterBet(100);
+                }}
+              >
+                +100
+              </button>
+              <button
+                onClick={() => {
+                  alterBet(250);
+                }}
+              >
+                +250
+              </button>
               <br></br>
-              <button onClick={() => {alterBet(-10)}}>-10</button>
-              <button onClick={() => {alterBet(-50)}}>-50</button>
-              <button onClick={() => {alterBet(-100)}}>-100</button>
-              <button onClick={() => {alterBet(-250)}}>-250</button>
+              <button
+                onClick={() => {
+                  alterBet(-10);
+                }}
+              >
+                -10
+              </button>
+              <button
+                onClick={() => {
+                  alterBet(-50);
+                }}
+              >
+                -50
+              </button>
+              <button
+                onClick={() => {
+                  alterBet(-100);
+                }}
+              >
+                -100
+              </button>
+              <button
+                onClick={() => {
+                  alterBet(-250);
+                }}
+              >
+                -250
+              </button>
             </div>
           </div>
         )}
       </div>
-    );
-}
+    </>
+  );
+};
 
 export default HiLo;

@@ -26,6 +26,10 @@
   align-items: center;
 }
 
+.prol {
+  margin-left: 5%;
+  margin-right: 5%;
+}
 .roulette-arrow {
   position: relative;
   font-size: 40px;
@@ -111,7 +115,6 @@
   }
 }
 
-/*Color betting container logic*/
 .betting-controls-container-color {
   position: absolute;
   left: 25%;
@@ -141,7 +144,6 @@
 
 .bet-size-selector-color button:hover {
   background-color: #45a049;
-  /* Darker green background on hover */
 }
 
 .bet-size-selector-color p {
@@ -150,7 +152,6 @@
   margin-top: 10px;
 }
 
-/*Number betting container logic*/
 .betting-controls-container-number {
   position: absolute;
   left: 5%;
@@ -168,7 +169,6 @@
 
 .betting-controls-container-number button {
   background-color: #4caf50;
-  /* Green background */
   color: white;
   padding: 10px 15px;
   margin: 5px;
@@ -180,12 +180,10 @@
 
 .bet-size-selector-number button:hover {
   background-color: #45a049;
-  /* Darker green background on hover */
 }
 
 .selection-group-color button:hover {
   background-color: #45a049;
-  /* Darker green background on hover */
 }
 
 .bet-size-selector-number p {
@@ -202,8 +200,6 @@
   border-radius: 5px;
   text-align: center;
 }
-
-/* User table*/
 
 .user-table-roulette {
   position: absolute;

@@ -34,6 +34,7 @@ const Blackjack = () => {
     }
   }
 
+  const [gameStarted, setGameStarted] = useState(false);
   const [deck, setDeck] = useState(initialDeck);
   const [playerHand, setPlayerHand] = useState([]);
   const [dealerHand, setDealerHand] = useState([]);
@@ -278,9 +279,35 @@ const Blackjack = () => {
 
   return (
     <div className="blackjack">
-      {user && (
+      <h1 className="title1">High Roller Heaven</h1>
+      <div className="rules" style={{ marginTop: "30px" }}>
+        {!gameStarted && <h1>Welcome to BlackJack!</h1>}
+        {!gameStarted && <h2>Read rules before playing!</h2>}
+        {!gameStarted && (
+          <p>
+            In Blackjack, aim to beat the dealer's hand without exceeding 21.
+            Numbered cards are worth their face value; face cards (Jacks,
+            Queens, Kings) count as 10, and Aces can be 1 or 11. Start with two
+            cards, then choose to hit (receive another card) or stand (keep
+            current hand). A "Blackjack" is an Ace and a 10-value card. The
+            dealer stands at 17 or higher. If you surpass 21, you bust and lose.
+            If your total beats the dealer without busting, you win. A tie
+            results in a push. Doubling down, splitting pairs, and insurance are
+            additional options in some scenarios.
+          </p>
+        )}
+        {!gameStarted && (
+          <button
+            onClick={() => {
+              setGameStarted(true);
+            }}
+          >
+            Start Game!
+          </button>
+        )}
+      </div>
+      {user && gameStarted && (
         <div>
-          <h1 className="title1">High Roller Heaven</h1>
           <div className="bet-button-container">
             <div className="">
               <button

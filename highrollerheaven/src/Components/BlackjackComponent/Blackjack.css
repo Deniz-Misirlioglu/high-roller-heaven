@@ -1,4 +1,5 @@
-.blackjack .title1 {}
+.blackjack .title1 {
+}
 
 .card {
   width: 100px;
@@ -64,6 +65,14 @@
   gap: 30px;
 }
 
+.blackjack p {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.blackjack .rules {
+  margin-top: 50px !important;
+}
 .bet-button {
   padding: 5px 10px;
   margin: 0 5px;
