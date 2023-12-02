@@ -66,6 +66,7 @@ const Login = () => {
   };
   return (
     <>
+      <h1 className="title1">High Roller Heaven</h1>
       <div className="login">
         {success ? (
           <section>

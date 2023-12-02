@@ -42,6 +42,9 @@ const Navbar = () => {
   const navigateToRoulette = (userId) => {
     navigate("/roulette", { replace: true, state: { userAccount: userId } });
   };
+  const navigateToHilo = (userId) => {
+    navigate("/hilo", {replace: true, state: { userAccount: userId} });
+  }
 
   return (
     <>
@@ -82,6 +85,15 @@ const Navbar = () => {
               >
                 <FontAwesomeIcon icon={faHome} />
                 <span> Roulette</span>
+              </div>
+            </li>
+            <li>
+              <div
+                className="nav-link"
+                onClick={() => navigateToHilo(userId)}
+              >
+                <FontAwesomeIcon icon={faDice} />
+                <span>HiLo</span>
               </div>
             </li>
             <li>

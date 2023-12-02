@@ -7,6 +7,7 @@ import Navbar from "./Components/NavBarComponent/Navbar";
 import Slot from "./Components/SlotComponent/Slot";
 import Roulette from "./Components/RouletteComponent/Roulette";
 import Blackjack from "./Components/BlackjackComponent/Blackjack";
+import HiLo  from "./Components/HiLo/HiLo";
 
 import {
   BrowserRouter as Router,
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/slot" element={<NavbarSlot />}></Route>
         <Route exact path="/roulette" element={<NavbarRoulette />}></Route>
         <Route exact path="/blackjack" element={<NavBarBlackjack />}></Route>
+        <Route exact path="/hilo" element={<NavBarHilo />}></Route>
       </Routes>
     </div>
   );
@@ -64,6 +66,15 @@ function NavBarBlackjack() {
     <>
       <Navbar />
       <Blackjack />
+    </>
+  );
+}
+
+function NavBarHilo() {
+  return (
+    <>
+      <Navbar />
+      <HiLo />
     </>
   );
 }

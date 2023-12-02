@@ -129,6 +129,7 @@ const Register = () => {
 
   return (
     <>
+      <h1 className="title1">High Roller Heaven</h1>
       <div className="register">
         {success ? (
           <section>
@@ -232,8 +233,8 @@ const Register = () => {
                         <FontAwesomeIcon icon={faInfoCircle} />
                         8 to 24 characters.
                         <br />
-                        Must include uppercase and lowercase letters, a number and
-                        a special character.
+                        Must include uppercase and lowercase letters, a number
+                        and a special character.
                         <br />
                         Allowed special characters:{" "}
                         <span aria-label="exclamation mark">!</span>{" "}
@@ -251,7 +252,9 @@ const Register = () => {
                         />
                         <FontAwesomeIcon
                           icon={faTimes}
-                          className={validMatch || !matchPwd ? "hide" : "invalid"}
+                          className={
+                            validMatch || !matchPwd ? "hide" : "invalid"
+                          }
                         />
                       </label>
                       <input
@@ -268,7 +271,9 @@ const Register = () => {
                       <p
                         id="confirmnote"
                         className={
-                          matchFocus && !validMatch ? "instructions" : "offscreen"
+                          matchFocus && !validMatch
+                            ? "instructions"
+                            : "offscreen"
                         }
                       >
                         <FontAwesomeIcon icon={faInfoCircle} />
@@ -294,9 +299,7 @@ const Register = () => {
                 </div>
               </div>
             </div>
-
           </section>
-
         )}
       </div>
     </>

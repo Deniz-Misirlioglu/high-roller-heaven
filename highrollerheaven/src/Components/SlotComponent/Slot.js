@@ -43,6 +43,8 @@ const Slot = () => {
   const [mongoData, setMongoData] = useState([]);
   const [justWon, setJustWon] = useState(false);
 
+  const [gameStarted, setGameStarted] = useState(false);
+
   useEffect(() => {
     const getMongoData = async () => {
       try {
@@ -188,173 +190,200 @@ const Slot = () => {
   return (
     <>
       <h1 className="title1">High Roller Heaven</h1>
-
-      <div className="slot-machine-container">
-        <div className="slot-machine">
-          <div className="reels-container">{reels.map(renderReel)}</div>
-          <div className="entireNumberContainer">
-            <div className="number-container1">
-              <button
-                disabled={spinning.some((s) => s)}
-                className="number plus1"
-                onClick={() => {
-                  if (betSize - 10 < 0) {
-                    alert("Bet Size Cannot Be Negative");
-                  } else {
-                    setBetSize(betSize - 10);
-                  }
-                }}
-              >
-                -
-              </button>
-              10
-              <button
-                disabled={spinning.some((s) => s)}
-                className="number minus1"
-                onClick={() => {
-                  if (betSize + 10 <= user.balance) setBetSize(betSize + 10);
-                  else {
-                    alert("Cannot Bet more than Balance");
-                  }
-                }}
-              >
-                +
-              </button>
-            </div>
-            <div className="number-container2">
-              <button
-                disabled={spinning.some((s) => s)}
-                className="number plus2"
-                onClick={() => {
-                  if (betSize - 20 < 0) {
-                    alert("Bet Size Cannot Be Negative");
-                  } else {
-                    setBetSize(betSize - 20);
-                  }
-                }}
-              >
-                -
-              </button>
-              20
-              <button
-                disabled={spinning.some((s) => s)}
-                className="number minus2"
-                onClick={() => {
-                  if (betSize + 20 <= user.balance) setBetSize(betSize + 20);
-                  else {
-                    alert("Cannot Bet more than Balance");
-                  }
-                }}
-              >
-                +
-              </button>
-            </div>
-            <div className="number-container3">
-              <button
-                disabled={spinning.some((s) => s)}
-                className="number plus3"
-                onClick={() => {
-                  if (betSize - 50 < 0) {
-                    alert("Bet Size Cannot Be Negative");
-                  } else {
-                    setBetSize(betSize - 50);
-                  }
-                }}
-              >
-                -
-              </button>
-              50
-              <button
-                disabled={spinning.some((s) => s)}
-                className="number minus3"
-                onClick={() => {
-                  if (betSize + 50 <= user.balance) setBetSize(betSize + 50);
-                  else {
-                    alert("Cannot Bet more than Balance");
-                  }
-                }}
-              >
-                +
-              </button>
-            </div>
-            <div className="number-container4">
-              <button
-                disabled={spinning.some((s) => s)}
-                className="number plus4"
-                onClick={() => {
-                  if (betSize - 100 < 0) {
-                    alert("Bet Size Cannot Be Negative");
-                  } else {
-                    setBetSize(betSize - 100);
-                  }
-                }}
-              >
-                -
-              </button>
-              100
-              <button
-                disabled={spinning.some((s) => s)}
-                className="number minus3"
-                onClick={() => {
-                  if (betSize + 100 <= user.balance) setBetSize(betSize + 100);
-                  else {
-                    alert("Cannot Bet more than Balance");
-                  }
-                }}
-              >
-                +
-              </button>
-              <div className="bet-amount">Bet Amount: {betSize}</div>
-            </div>
-          </div>
-          {user && (
-            <button
-              onClick={spinReels}
-              disabled={spinning.some((s) => s) || betSize > user.balance}
-            >
-              {spinning.some((s) => s) ? "Spinning..." : "Spin"}
-            </button>
-          )}
-        </div>
-        <div className="win-display">
-          {justWon > 0 && (
-            <div className="win-message">You won {currentWin}x your bet!</div>
-          )}
-        </div>
+      <div className="rules">
+        {!gameStarted && <h1>Welcome to Slots!</h1>}
+        {!gameStarted && <h2>Read rules before playing!</h2>}
+        {!gameStarted && <p>Must score 3 in a row horizontally to win</p>}
+        {!gameStarted && (
+          <button
+            onClick={() => {
+              setGameStarted(true);
+            }}
+          >
+            Start Game!
+          </button>
+        )}
       </div>
-      <div className="user-table">
-        <div>
-          {user && (
-            <>
-              <div>
-                <u>{user.username}</u>
+      {gameStarted && (
+        <>
+          <div className="slot-machine-container">
+            <div className="slot-machine">
+              <div className="reels-container">{reels.map(renderReel)}</div>
+              <div className="entireNumberContainer">
+                <div className="number-container1">
+                  <button
+                    disabled={spinning.some((s) => s)}
+                    className="number plus1"
+                    onClick={() => {
+                      if (betSize - 10 < 0) {
+                        alert("Bet Size Cannot Be Negative");
+                      } else {
+                        setBetSize(betSize - 10);
+                      }
+                    }}
+                  >
+                    -
+                  </button>
+                  10
+                  <button
+                    disabled={spinning.some((s) => s)}
+                    className="number minus1"
+                    onClick={() => {
+                      if (betSize + 10 <= user.balance)
+                        setBetSize(betSize + 10);
+                      else {
+                        alert("Cannot Bet more than Balance");
+                      }
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+                <div className="number-container2">
+                  <button
+                    disabled={spinning.some((s) => s)}
+                    className="number plus2"
+                    onClick={() => {
+                      if (betSize - 20 < 0) {
+                        alert("Bet Size Cannot Be Negative");
+                      } else {
+                        setBetSize(betSize - 20);
+                      }
+                    }}
+                  >
+                    -
+                  </button>
+                  20
+                  <button
+                    disabled={spinning.some((s) => s)}
+                    className="number minus2"
+                    onClick={() => {
+                      if (betSize + 20 <= user.balance)
+                        setBetSize(betSize + 20);
+                      else {
+                        alert("Cannot Bet more than Balance");
+                      }
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+                <div className="number-container3">
+                  <button
+                    disabled={spinning.some((s) => s)}
+                    className="number plus3"
+                    onClick={() => {
+                      if (betSize - 50 < 0) {
+                        alert("Bet Size Cannot Be Negative");
+                      } else {
+                        setBetSize(betSize - 50);
+                      }
+                    }}
+                  >
+                    -
+                  </button>
+                  50
+                  <button
+                    disabled={spinning.some((s) => s)}
+                    className="number minus3"
+                    onClick={() => {
+                      if (betSize + 50 <= user.balance)
+                        setBetSize(betSize + 50);
+                      else {
+                        alert("Cannot Bet more than Balance");
+                      }
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+                <div className="number-container4">
+                  <button
+                    disabled={spinning.some((s) => s)}
+                    className="number plus4"
+                    onClick={() => {
+                      if (betSize - 100 < 0) {
+                        alert("Bet Size Cannot Be Negative");
+                      } else {
+                        setBetSize(betSize - 100);
+                      }
+                    }}
+                  >
+                    -
+                  </button>
+                  100
+                  <button
+                    disabled={spinning.some((s) => s)}
+                    className="number minus3"
+                    onClick={() => {
+                      if (betSize + 100 <= user.balance)
+                        setBetSize(betSize + 100);
+                      else {
+                        alert("Cannot Bet more than Balance");
+                      }
+                    }}
+                  >
+                    +
+                  </button>
+                  <div className="bet-amount">Bet Amount: {betSize}</div>
+                </div>
               </div>
-              <div>
-                Your Current balance is {user.balance}{" "}
-                <p>Adjust your bet with +/-</p>
+              {user && (
+                <button
+                  onClick={spinReels}
+                  disabled={spinning.some((s) => s) || betSize > user.balance}
+                >
+                  {spinning.some((s) => s) ? "Spinning..." : "Spin"}
+                </button>
+              )}
+            </div>
+            <div className="win-display">
+              {justWon > 0 && (
+                <div className="win-message">
+                  You won {currentWin}x your bet!
+                </div>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+      {gameStarted && (
+        <>
+          <div className="user-table">
+            <div>
+              {user && (
+                <>
+                  <div>
+                    <u>{user.username}</u>
+                  </div>
+                  <div>
+                    Your Current balance is {user.balance}{" "}
+                    <p>Adjust your bet with +/-</p>
+                  </div>
+                </>
+              )}
+            </div>
+            <div className="payout-table">
+              <div className="payout-item">
+                <span className="payout-symbol">☁️</span> 1x
               </div>
-            </>
-          )}
-        </div>
-        <div className="payout-table">
-          <div className="payout-item">
-            <span className="payout-symbol">☁️</span> 1x
+              <div className="payout-item">
+                <span className="payout-symbol">🌈</span> 3x
+              </div>
+              <div className="payout-item">
+                <span className="payout-symbol">🌟</span> 10x
+              </div>
+              <div className="payout-item">
+                <span className="payout-symbol">🌠</span> 100x
+              </div>
+              <div className="win-information">
+                <FontAwesomeIcon icon={faInfoCircle} /> Win by getting 3 symbols
+                in a row
+              </div>
+            </div>
           </div>
-          <div className="payout-item">
-            <span className="payout-symbol">🌈</span> 3x
-          </div>
-          <div className="payout-item">
-            <span className="payout-symbol">🌟</span> 10x
-          </div>
-          <div className="payout-item">
-            <span className="payout-symbol">🌠</span> 100x
-          </div>
-          <div className="win-information">
-            <FontAwesomeIcon icon={faInfoCircle} /> Win by getting 3 symbols in
-            a row
-          </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };

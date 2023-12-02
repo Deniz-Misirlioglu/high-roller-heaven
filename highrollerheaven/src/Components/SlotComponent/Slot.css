@@ -18,6 +18,9 @@
   margin: 0 4px;
 }
 
+.rules {
+  margin-top: 50px !important;
+}
 .symbol {
   display: flex;
   justify-content: center;
