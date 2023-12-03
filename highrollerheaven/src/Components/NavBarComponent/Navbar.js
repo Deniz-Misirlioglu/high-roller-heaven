@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect, useContext } from "react";
 import axios from "axios";
+import hrhLogo from "../../hrhLogo.png";
 
 const Navbar = () => {
   const location = useLocation();
@@ -75,6 +76,9 @@ const Navbar = () => {
       {user && (
         <>
           <div className="top-navbar">
+            <img src={hrhLogo} alt="High Roller Heaven Logo" className="logo" />
+            <div className="user-name">{user.username}</div>
+            <img src={hrhLogo} alt="High Roller Heaven Logo" className="logo" />
             <Link to="/login">Logout</Link>
           </div>
           <button className="hamburger-btn" onClick={handleHamburgerClick}>
@@ -97,8 +101,7 @@ const Navbar = () => {
                     className="nav-link"
                     onClick={() => navigateToSlots(userId)}
                   >
-                    <FontAwesomeIcon icon={faDice} />
-                    <span> Slots</span>
+                    S<span>lots</span>
                   </div>
                 </li>
                 <li>
@@ -106,8 +109,7 @@ const Navbar = () => {
                     className="nav-link"
                     onClick={() => navigateToBlackJack(userId)}
                   >
-                    <FontAwesomeIcon icon={faDice} />
-                    <span> Blackjack</span>
+                    B<span>lackjack</span>
                   </div>
                 </li>
                 <li>
@@ -115,8 +117,7 @@ const Navbar = () => {
                     className="nav-link"
                     onClick={() => navigateToRoulette(userId)}
                   >
-                    <FontAwesomeIcon icon={faHome} />
-                    <span> Roulette</span>
+                    R<span>oulette</span>
                   </div>
                 </li>
                 <li>
@@ -124,15 +125,8 @@ const Navbar = () => {
                     className="nav-link"
                     onClick={() => navigateToHilo(userId)}
                   >
-                    <FontAwesomeIcon icon={faDice} />
-                    <span>HiLo</span>
+                    H<span>iLo</span>
                   </div>
-                </li>
-                <li>
-                  <Link to="/account">
-                    <FontAwesomeIcon icon={faUser} />
-                    <span> Account</span>
-                  </Link>
                 </li>
               </ul>
             </div>

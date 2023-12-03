@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import "../HomeComponent/Home.css";
+import blackjack from "../../blackjack.png";
+import hilo from "../../hilo.png";
+import roulette from "../../roulette.png";
+import slotmachine from "../../slot-machine.png";
 
 const Home = (props) => {
   const location = useLocation();
@@ -88,25 +92,59 @@ const Home = (props) => {
 
   return (
     <>
-      <h1 className="title1">High Roller Heaven</h1>
+      <h1 className="title1"></h1>
       <div className="home">
         <div className="vertical"></div>
         {user && (
           <>
-            <div>Welcome {user.username}</div>
-            <div>Your Current balance is {user.balance}</div>
-
-            <button
-              className={`button-85 ${
-                !allowedToRefill ? "disabled-button" : ""
-              }`}
-              onClick={refillUserBalance}
-              disabled={!allowedToRefill}
-            >
-              {allowedToRefill ? "Refill Balance" : timer + " To Refill"}
-            </button>
+            <div className="balance">
+              Balance: {user.balance}
+              <br></br>
+              <button
+                className={`button-85 ${
+                  !allowedToRefill ? "disabled-button" : ""
+                }`}
+                onClick={refillUserBalance}
+                disabled={!allowedToRefill}
+              >
+                {allowedToRefill ? "Refill Balance" : timer + " To Refill"}
+              </button>
+            </div>
           </>
         )}
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ textAlign: "center", margin: "10px" }}>
+          <p>Slot Machine</p>
+          <img
+            src={slotmachine}
+            alt="SlotMachine Image"
+            className="slotmachine"
+          />
+        </div>
+
+        <div style={{ textAlign: "center", margin: "10px" }}>
+          <p>Blackjack</p>
+          <img src={blackjack} alt="Blackjack Image" className="blackjack" />
+        </div>
+
+        <div style={{ textAlign: "center", margin: "10px" }}>
+          <p>Roulette</p>
+          <img src={roulette} alt="Roulette Image" className="roulette" />
+        </div>
+
+        <div style={{ textAlign: "center", margin: "10px" }}>
+          <p>HiLo</p>
+          <img src={hilo} alt="HiLo Image" className="hilo" />
+        </div>
       </div>
     </>
   );

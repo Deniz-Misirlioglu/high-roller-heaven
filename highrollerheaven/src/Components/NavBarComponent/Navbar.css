@@ -117,7 +117,7 @@ html {
 }
 .top-navbar a {
   color: #fff;
-  margin-left: 15px;
+  margin-left: 565px;
   text-decoration: none;
 }
 
@@ -170,4 +170,13 @@ html {
 
 .nav-link {
   cursor: pointer;
+}
+
+.user-name{
+  color: #00cce7;
+}
+
+.logo{
+  width: 60px;
+  height: auto;
 }
