@@ -6,9 +6,11 @@ import blackjack from "../../blackjack.png";
 import hilo from "../../hilo.png";
 import roulette from "../../roulette.png";
 import slotmachine from "../../slot-machine.png";
+import { useNavigate } from "react-router-dom";
 
 const Home = (props) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [mongoData, setMongoData] = useState([]);
   const [user, setUser] = useState(null);
@@ -16,6 +18,10 @@ const Home = (props) => {
   const [isRefilled, setIsRefilled] = useState(false);
   const [allowedToRefill, setAllowedToRefill] = useState(false);
   const [timer, setTimer] = useState("00:00");
+
+  const handleGameNavigation = (gameRoute) => {
+    navigate(gameRoute, { state: { userAccount: location.state.userAccount } });
+  };
 
   useEffect(() => {
     const getMongoData = async () => {
@@ -122,7 +128,10 @@ const Home = (props) => {
           justifyContent: "center",
         }}
       >
-        <div style={{ textAlign: "center", margin: "10px" }}>
+        <div
+          style={{ textAlign: "center", margin: "10px", cursor: "pointer" }}
+          onClick={() => handleGameNavigation("/slot")}
+        >
           <p>Slot Machine</p>
           <img
             src={slotmachine}
@@ -131,7 +140,10 @@ const Home = (props) => {
           />
         </div>
 
-        <div style={{ textAlign: "center", margin: "10px" }}>
+        <div
+          style={{ textAlign: "center", margin: "10px", cursor: "pointer" }}
+          onClick={() => handleGameNavigation("/blackjack")}
+        >
           <p>Blackjack</p>
           <img
             src={blackjack}
@@ -140,12 +152,18 @@ const Home = (props) => {
           />
         </div>
 
-        <div style={{ textAlign: "center", margin: "10px" }}>
+        <div
+          style={{ textAlign: "center", margin: "10px", cursor: "pointer" }}
+          onClick={() => handleGameNavigation("/roulette")}
+        >
           <p>Roulette</p>
           <img src={roulette} alt="Roulette Image" className="roulette" />
         </div>
 
-        <div style={{ textAlign: "center", margin: "10px" }}>
+        <div
+          style={{ textAlign: "center", margin: "10px", cursor: "pointer" }}
+          onClick={() => handleGameNavigation("/hilo")}
+        >
           <p>HiLo</p>
           <img src={hilo} alt="HiLo Image" className="hilo" />
         </div>
