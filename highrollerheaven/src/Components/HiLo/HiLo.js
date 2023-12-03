@@ -122,7 +122,7 @@ const HiLo = () => {
     drawCard(newCard);
     if (result) {
       // Use math.floor to ensure new balance is an integer
-      changeUserBalance(Math.floor((highOdds - 1) * bet));
+      changeUserBalance(highOdds * bet);
     }
     setBet(0);
   };
@@ -136,12 +136,11 @@ const HiLo = () => {
       ranks.indexOf(currentCard.rank) > ranks.indexOf(newCard.rank)
         ? true
         : false;
-
     // Set current card to the one we drew.
     drawCard(newCard);
     if (result) {
       // Use math.floor to ensure new balance is an integer
-      changeUserBalance(Math.floor((lowOdds - 1) * bet));
+      changeUserBalance(lowOdds * bet);
     }
     setBet(0);
   };
@@ -158,7 +157,7 @@ const HiLo = () => {
 
     drawCard(newCard);
     if (result) {
-      changeUserBalance(Math.floor((tieOdds - 1) * bet));
+      changeUserBalance(tieOdds * bet);
     }
     setBet(0);
   };
