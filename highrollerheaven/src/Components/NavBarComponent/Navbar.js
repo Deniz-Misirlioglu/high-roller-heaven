@@ -1,10 +1,11 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faDice, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useRef, useState, useEffect, useContext } from "react";
+import axios from "axios";
 
 const Navbar = () => {
   const location = useLocation();
@@ -14,6 +15,29 @@ const Navbar = () => {
   const userId = location.state.userAccount;
   const [isExpanded, setIsExpanded] = useState(false);
   const [showText, setShowText] = useState(false);
+  const [user, setUser] = useState("");
+  const [mongoData, setMongoData] = useState([]);
+
+  useEffect(() => {
+    const getMongoData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/getCustomers");
+        setMongoData(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getMongoData();
+  }, []);
+
+  useEffect(() => {
+    if (location.state.userAccount) {
+      const userId = location.state.userAccount;
+      const foundUser = mongoData.find((user) => user._id === userId);
+      setUser(foundUser);
+    }
+  }, [mongoData, location.state.userAccount]);
 
   const handleHamburgerClick = () => {
     setIsExpanded((prevIsExpanded) => !prevIsExpanded);
@@ -43,68 +67,78 @@ const Navbar = () => {
     navigate("/roulette", { replace: true, state: { userAccount: userId } });
   };
   const navigateToHilo = (userId) => {
-    navigate("/hilo", {replace: true, state: { userAccount: userId} });
-  }
+    navigate("/hilo", { replace: true, state: { userAccount: userId } });
+  };
 
   return (
     <>
-      <div className="top-navbar">
-        <Link to="/login">Logout</Link>
-      </div>
-      <button className="hamburger-btn" onClick={handleHamburgerClick}>
-        ☰
-      </button>
-      <nav className={`navbar ${isExpanded ? "expanded" : "collapsed"}`}>
-        <div className="navbar-menu">
-          <ul className={`menu-list ${showText ? "show" : ""}`}>
-            <li>
-              <div className="nav-link" onClick={() => navigateToHome(userId)}>
-                <FontAwesomeIcon icon={faHome} />
-                <span> Home</span>
-              </div>
-            </li>
-            <li>
-              <div className="nav-link" onClick={() => navigateToSlots(userId)}>
-                <FontAwesomeIcon icon={faDice} />
-                <span> Slots</span>
-              </div>
-            </li>
-            <li>
-              <div
-                className="nav-link"
-                onClick={() => navigateToBlackJack(userId)}
-              >
-                <FontAwesomeIcon icon={faDice} />
-                <span> Blackjack</span>
-              </div>
-            </li>
-            <li>
-              <div
-                className="nav-link"
-                onClick={() => navigateToRoulette(userId)}
-              >
-                <FontAwesomeIcon icon={faHome} />
-                <span> Roulette</span>
-              </div>
-            </li>
-            <li>
-              <div
-                className="nav-link"
-                onClick={() => navigateToHilo(userId)}
-              >
-                <FontAwesomeIcon icon={faDice} />
-                <span>HiLo</span>
-              </div>
-            </li>
-            <li>
-              <Link to="/account">
-                <FontAwesomeIcon icon={faUser} />
-                <span> Account</span>
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      {user && (
+        <>
+          <div className="top-navbar">
+            <Link to="/login">Logout</Link>
+          </div>
+          <button className="hamburger-btn" onClick={handleHamburgerClick}>
+            ☰
+          </button>
+          <nav className={`navbar ${isExpanded ? "expanded" : "collapsed"}`}>
+            <div className="navbar-menu">
+              <ul className={`menu-list ${showText ? "show" : ""}`}>
+                <li>
+                  <div
+                    className="nav-link"
+                    onClick={() => navigateToHome(userId)}
+                  >
+                    <FontAwesomeIcon icon={faHome} />
+                    <span> Home</span>
+                  </div>
+                </li>
+                <li>
+                  <div
+                    className="nav-link"
+                    onClick={() => navigateToSlots(userId)}
+                  >
+                    <FontAwesomeIcon icon={faDice} />
+                    <span> Slots</span>
+                  </div>
+                </li>
+                <li>
+                  <div
+                    className="nav-link"
+                    onClick={() => navigateToBlackJack(userId)}
+                  >
+                    <FontAwesomeIcon icon={faDice} />
+                    <span> Blackjack</span>
+                  </div>
+                </li>
+                <li>
+                  <div
+                    className="nav-link"
+                    onClick={() => navigateToRoulette(userId)}
+                  >
+                    <FontAwesomeIcon icon={faHome} />
+                    <span> Roulette</span>
+                  </div>
+                </li>
+                <li>
+                  <div
+                    className="nav-link"
+                    onClick={() => navigateToHilo(userId)}
+                  >
+                    <FontAwesomeIcon icon={faDice} />
+                    <span>HiLo</span>
+                  </div>
+                </li>
+                <li>
+                  <Link to="/account">
+                    <FontAwesomeIcon icon={faUser} />
+                    <span> Account</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </>
+      )}
     </>
   );
 };
