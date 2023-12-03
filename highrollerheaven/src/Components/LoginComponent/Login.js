@@ -4,8 +4,8 @@ import AuthorizedUserContext from "../Authentication/AuthorizeUser";
 import bcrypt from "bcryptjs";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 import "../LoginComponent/Login.css";
+import hrhLogo from "../../hrhLogo.png";
 
 const Login = () => {
   const { setAuth } = useContext(AuthorizedUserContext);
@@ -31,11 +31,8 @@ const Login = () => {
     try {
       const response = await axios.get("http://localhost:3001/getCustomers");
 
-      console.log(response.data);
       return response.data;
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleSubmit = async (e) => {
@@ -47,7 +44,6 @@ const Login = () => {
       const foundUser = mongoData.find(
         (userName) => userName.username === user
       );
-      console.log(pwd);
       if (foundUser) {
         const isMatch = await bcrypt.compare(pwd, foundUser.password);
         if (isMatch) {
@@ -56,9 +52,10 @@ const Login = () => {
           setPwd("");
           setSuccess(true);
           const userId = foundUser._id;
-          console.log(userId + "THIS IS USEER ID");
           navigate("/home", { replace: true, state: { userAccount: userId } });
         }
+      } else {
+        alert("Incorrect Login Information");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -66,7 +63,19 @@ const Login = () => {
   };
   return (
     <>
-      <h1 className="title1">High Roller Heaven</h1>
+      <h2 className="logo-text">
+        <img
+          src={hrhLogo}
+          alt="High Roller Heaven Logo"
+          className="logo-left"
+        />
+        <span className="outline-text">High Roller Heaven</span>
+        <img
+          src={hrhLogo}
+          alt="High Roller Heaven Logo"
+          className="logo-right"
+        />
+      </h2>
       <div className="login">
         {success ? (
           <section>
@@ -115,7 +124,7 @@ const Login = () => {
                   </form>
                   <p>
                     Need an Account?
-                    <br />
+                    <br></br>
                     <span className="line">
                       <Link to="/Register">Register</Link>
                     </span>

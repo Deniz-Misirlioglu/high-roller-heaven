@@ -60,7 +60,6 @@ const Slot = () => {
 
   useEffect(() => {
     if (currentWin > 0) {
-      console.log("ADDING " + currentWin * betSize);
       changeUserBalance(currentWin * betSize);
       setJustWon(true);
     }
@@ -164,8 +163,6 @@ const Slot = () => {
   const changeUserBalance = async (changingAmount) => {
     const date = Date.now();
 
-    console.log("THIS CHANGING AMOUNT" + changingAmount);
-
     const post = {
       content: `User balance has been refilled by ${changingAmount}`,
       amount: changingAmount,
@@ -177,7 +174,6 @@ const Slot = () => {
       post
     );
 
-    console.log("User balance has been refilled:", user.balance);
     if (response.status === 201) {
       setUser({
         ...user,

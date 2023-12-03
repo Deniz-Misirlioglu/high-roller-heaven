@@ -10,6 +10,7 @@ import bcrypt from "bcryptjs";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../RegisterComponent/Register.css";
+import hrhLogo from "../../hrhLogo.png";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -42,11 +43,9 @@ const Register = () => {
   }, []);
 
   useEffect(() => {
-    console.log(users);
     const isUsernameTaken = users.some(
       (existingUser) => existingUser.username === user
     );
-    console.log(isUsernameTaken + "USERNAMETAKE?");
     if (isUsernameTaken) {
       setErrMsg("Username already taken.");
       setValidName(false);
@@ -67,16 +66,13 @@ const Register = () => {
     setErrMsg("");
   }, [user, pwd, matchPwd]);
 
-  useEffect(() => {
-    console.log("Users after state update: " + users);
-  }, [users]);
+  useEffect(() => {}, [users]);
 
   const getMongoData = async () => {
     try {
       const response = await axios.get("http://localhost:3001/getCustomers");
       // Assuming the response data is an array of users
       setUsers(response.data);
-      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -97,8 +93,6 @@ const Register = () => {
     }
     setSuccess(true); //success being true
 
-    console.log(user);
-    console.log(pwd);
     //PLACE API STUFF HERE
     addUserData(user, pwd);
     navigate("/login");
@@ -120,8 +114,6 @@ const Register = () => {
         "http://localhost:3001/addCustomers",
         userData
       );
-
-      console.log("User added successfully:", response.data);
     } catch (error) {
       console.error("Error adding user:", error);
     }
@@ -129,7 +121,19 @@ const Register = () => {
 
   return (
     <>
-      <h1 className="title1">High Roller Heaven</h1>
+      <h2 className="logo-text">
+        <img
+          src={hrhLogo}
+          alt="High Roller Heaven Logo"
+          className="logo-left"
+        />
+        <span className="outline-text">High Roller Heaven</span>
+        <img
+          src={hrhLogo}
+          alt="High Roller Heaven Logo"
+          className="logo-right"
+        />
+      </h2>
       <div className="register">
         {success ? (
           <section>
@@ -290,7 +294,7 @@ const Register = () => {
                     </div>
                   </form>
                   <p>
-                    Already registered?
+                    Already have an account?
                     <br />
                     <span className="line">
                       <Link to="/login">Sign In</Link>
