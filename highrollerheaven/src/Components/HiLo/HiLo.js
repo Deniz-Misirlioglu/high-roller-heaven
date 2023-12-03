@@ -63,19 +63,18 @@ const HiLo = () => {
   }, []);
 
   useEffect(() => {
+    if (user) {
+      setBalance(user.balance);
+    }
+  }, [user]);
+
+  useEffect(() => {
     if (location.state.userAccount) {
       const userId = location.state.userAccount;
       const foundUser = mongoData.find((user) => user._id === userId);
       setUser(foundUser);
     }
   }, [mongoData, location.state.userAccount]);
-
-  useEffect(() => {
-    if (user) {
-      setBalance(user.balance);
-    }
-  }, [user]);
-
   const changeUserBalance = async (changingAmount) => {
     const date = Date.now();
 
@@ -113,7 +112,9 @@ const HiLo = () => {
 
   const processHighBet = () => {
     var newCard = deck.pop();
-    changeUserBalance(-1 * bet);
+    if (highOdds !== 1) {
+      changeUserBalance(-1 * bet);
+    }
 
     var result =
       ranks.indexOf(currentCard.rank) < ranks.indexOf(newCard.rank)
@@ -122,14 +123,17 @@ const HiLo = () => {
     drawCard(newCard);
     if (result) {
       // Use math.floor to ensure new balance is an integer
-      changeUserBalance(highOdds * bet);
+      console.log(highOdds * bet - bet);
+      changeUserBalance(highOdds * bet - bet);
     }
     setBet(0);
   };
 
   const processLowBet = () => {
     var newCard = deck.pop();
-    changeUserBalance(-1 * bet);
+    if (lowOdds !== 1) {
+      changeUserBalance(-1 * bet);
+    }
 
     // Result is if the rank is lower in the next card
     var result =
@@ -139,16 +143,16 @@ const HiLo = () => {
     // Set current card to the one we drew.
     drawCard(newCard);
     if (result) {
-      // Use math.floor to ensure new balance is an integer
-      changeUserBalance(lowOdds * bet);
+      changeUserBalance(lowOdds * bet - bet);
     }
     setBet(0);
   };
 
   const processTieBet = () => {
     var newCard = deck.pop();
-    changeUserBalance(-1 * bet);
-
+    if (tieOdds !== 1) {
+      changeUserBalance(-1 * bet);
+    }
     // Result is if the rank is the same in the next card
     var result =
       ranks.indexOf(currentCard.rank) === ranks.indexOf(newCard.rank)
@@ -157,7 +161,8 @@ const HiLo = () => {
 
     drawCard(newCard);
     if (result) {
-      changeUserBalance(tieOdds * bet);
+      console.log("Changing Balance" + tieOdds * bet);
+      changeUserBalance(tieOdds * bet - bet);
     }
     setBet(0);
   };
@@ -231,7 +236,7 @@ const HiLo = () => {
             </button>
           )}
         </div>
-        {gameStarted && (
+        {gameStarted && user && (
           <div className="game">
             <Card suit={currentCard.suit} rank={currentCard.rank} />
             <div className="choice">
@@ -275,6 +280,7 @@ const HiLo = () => {
               <h3>Your balance: {balance}</h3>
               <h3>Current Bet: {bet}</h3>
               <label>Custom Bet: </label>
+
               <input
                 onChange={(e) => {
                   setTypedBet(parseInt(e.target.value));
