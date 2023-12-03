@@ -280,7 +280,7 @@ const Blackjack = () => {
   return (
     <div className="blackjack">
       <h1 className="title1">High Roller Heaven</h1>
-      <div className="rules" style={{ marginTop: "30px" }}>
+      <div className="rules">
         {!gameStarted && <h1>Welcome to BlackJack!</h1>}
         {!gameStarted && <h2>Read rules before playing!</h2>}
         {!gameStarted && (
