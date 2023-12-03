@@ -75,9 +75,6 @@ const Navbar = () => {
       {user && (
         <>
           <div className="top-navbar">
-            <img src={hrhLogo} alt="High Roller Heaven Logo" className="logo" />
-            <div className="user-name">{user.username}</div>
-            <img src={hrhLogo} alt="High Roller Heaven Logo" className="logo" />
             <Link to="/login" className="rigthalign">
               Logout
             </Link>
