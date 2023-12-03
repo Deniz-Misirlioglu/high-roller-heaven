@@ -206,8 +206,6 @@ const Roulette = () => {
   const changeUserBalance = async (changingAmount) => {
     const date = Date.now();
 
-    console.log("THIS CHANGING AMOUNT" + changingAmount);
-
     const post = {
       content: `User balance has been refilled by ${changingAmount}`,
       amount: changingAmount,
@@ -219,7 +217,6 @@ const Roulette = () => {
       post
     );
 
-    console.log("User balance has been refilled:", user.balance);
     if (response.status === 201) {
       setUser({
         ...user,

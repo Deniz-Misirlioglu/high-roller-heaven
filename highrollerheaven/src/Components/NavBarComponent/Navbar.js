@@ -12,7 +12,6 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log(location.state.userAccount);
   const userId = location.state.userAccount;
   const [isExpanded, setIsExpanded] = useState(false);
   const [showText, setShowText] = useState(false);

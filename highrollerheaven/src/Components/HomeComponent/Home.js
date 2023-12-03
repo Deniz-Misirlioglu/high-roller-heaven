@@ -49,7 +49,6 @@ const Home = (props) => {
       if (user) {
         const date = Date.now();
         const refillTime = user.refillBalanceTime;
-        console.log(user.refillBalanceTime);
         const currentTime = Date.now();
         const timeRemaining = Math.max(0, 1800000 - (currentTime - refillTime));
         const minutes = Math.floor(timeRemaining / 60000);
@@ -69,8 +68,6 @@ const Home = (props) => {
     const date = Date.now();
     if (user.refillBalanceTime <= date - 1800000 && !isRefilled) {
       setIsRefilled(true);
-      console.log("DATE" + date);
-      console.log("User balance has been refilled:", user.balance);
 
       const post = {
         content: `User balance has been refilled to ${user.balance}`,
