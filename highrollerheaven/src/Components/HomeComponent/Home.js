@@ -133,7 +133,11 @@ const Home = (props) => {
 
         <div style={{ textAlign: "center", margin: "10px" }}>
           <p>Blackjack</p>
-          <img src={blackjack} alt="Blackjack Image" className="blackjack" />
+          <img
+            src={blackjack}
+            alt="Blackjack Image"
+            className="blackjackGame"
+          />
         </div>
 
         <div style={{ textAlign: "center", margin: "10px" }}>
