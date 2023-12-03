@@ -172,17 +172,6 @@ html {
   cursor: pointer;
 }
 
-.user-name {
-  color: #00cce7;
-  text-align: center;
-  flex: 1;
-}
-
-.logo {
-  width: 60px;
-  height: auto;
-}
-
 .rigthalign {
   margin-left: auto;
 }
