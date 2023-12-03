@@ -4,8 +4,8 @@ import AuthorizedUserContext from "../Authentication/AuthorizeUser";
 import bcrypt from "bcryptjs";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 import "../LoginComponent/Login.css";
+import hrhLogo from '../../hrhLogo.png';
 
 const Login = () => {
   const { setAuth } = useContext(AuthorizedUserContext);
@@ -69,7 +69,13 @@ const Login = () => {
   };
   return (
     <>
-      <h1 >High Roller Heaven</h1>
+      <h2 className="logo-text">
+        <img src={hrhLogo} alt="High Roller Heaven Logo" className="logo-left" />
+        <span className="outline-text">
+          High Roller Heaven
+        </span>
+        <img src={hrhLogo} alt="High Roller Heaven Logo" className="logo-right" />
+      </h2>
       <div className="login">
         {success ? (
           <section>

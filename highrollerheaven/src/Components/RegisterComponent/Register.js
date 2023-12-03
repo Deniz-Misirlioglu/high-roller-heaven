@@ -10,6 +10,7 @@ import bcrypt from "bcryptjs";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../RegisterComponent/Register.css";
+import hrhLogo from '../../hrhLogo.png';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -129,7 +130,13 @@ const Register = () => {
 
   return (
     <>
-      <h1 className="title1">High Roller Heaven</h1>
+      <h2 className="logo-text">
+        <img src={hrhLogo} alt="High Roller Heaven Logo" className="logo-left" />
+        <span className="outline-text">
+          High Roller Heaven
+        </span>
+        <img src={hrhLogo} alt="High Roller Heaven Logo" className="logo-right" />
+      </h2>
       <div className="register">
         {success ? (
           <section>
@@ -290,7 +297,7 @@ const Register = () => {
                     </div>
                   </form>
                   <p>
-                    Already registered?
+                    Already have an account?
                     <br />
                     <span className="line">
                       <Link to="/login">Sign In</Link>

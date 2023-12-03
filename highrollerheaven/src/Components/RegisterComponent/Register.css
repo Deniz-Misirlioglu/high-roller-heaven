@@ -7,8 +7,6 @@
 
 }
 
-
-
 .register .login {
   padding: 30px;
   border-radius: 25px;
@@ -25,11 +23,10 @@
 }
 
 .register .screen {
-  background: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+  background-color: #1a2c38;
   position: absolute;
   height: 600px;
-  width: 360px;
-  box-shadow: 0px 0px 24px #5c5696;
+  width: 370px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -108,4 +105,90 @@
 
 .register .line {
   display: inline-block;
+}
+
+h1{
+  color:#f9fafa;
+  font-size: 25px;
+  font-family:verdana;
+}
+
+label[for="username"],
+label[for="password"],
+label[for="confirm_pwd"] {
+  color: #bec5d6;
+  font-size: 20px;
+  display: inline-block;
+  text-align: left;
+}
+
+label[for="password"] {
+  margin-top: 20px;
+  text-align: left;
+}
+
+label[for="confirm_pwd"] {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.login__field {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.login__field button {
+  width: 150px;
+  margin: auto;
+  margin-top: 10px;
+  background-color: #00cce7;
+  color: #000000;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login__field button:hover {
+  background-color: #3fe1f6;
+}
+
+p {
+  color: white;
+  font-size: 20px;
+}
+
+.outline-text {
+  color: #00cce7;
+  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+  font-size: 30px;
+}
+
+.line {
+  margin-top: 10px;
+}
+
+.logo-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-left,
+.logo-right {
+  width: 100px;
+  height: auto;
+  margin: -30px -50px 0 -50px;
+}
+
+.logo-left {
+  order: -1;
+  z-index: -1;
+}
+
+.logo-right {
+  order: 1;
+  z-index: -1;
 }

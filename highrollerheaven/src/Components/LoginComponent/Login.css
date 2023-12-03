@@ -12,6 +12,7 @@
 
 .login .login__field {
   position: relative;
+  margin: 20px 0;
 }
 
 .login .container {
@@ -25,7 +26,6 @@
   position: absolute;
   height: 600px;
   width: 360px;
-  box-shadow: 0px 0px 24px #5c5696;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -35,6 +35,7 @@
 .login .screen__content {
   z-index: 1;
   position: relative;
+  margin: 20px auto;
 }
 
 .login form {
@@ -111,17 +112,13 @@ h1{
   font-family:verdana;
 }
 
-label[for="username"] {
-  color:#bec5d6;
-  font-size: 20px;
-  margin-right: 185px;
-}
-
+label[for="username"],
 label[for="password"] {
-  color:#bec5d6;
+  color: #bec5d6;
   font-size: 20px;
-  margin-right: 185px;
-  margin-top: 30px;
+  margin-right: 20px;
+  display: inline-block;
+  text-align: left;
 }
 
 .login__field {
@@ -144,13 +141,43 @@ label[for="password"] {
 }
 
 .login__field button:hover {
-  background-color: #005f7f;
+  background-color: #3fe1f6;
 }
 
 p {
   color: white;
+  font-size: 20px;
+}
+
+.outline-text {
+  color: #00cce7;
+  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+  font-size: 30px;
 }
 
 .line {
   margin-top: 10px;
+}
+
+.logo-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-left,
+.logo-right {
+  width: 100px;
+  height: auto;
+  margin: -30px -50px 0 -50px;
+}
+
+.logo-left {
+  order: -1;
+  z-index: -1;
+}
+
+.logo-right {
+  order: 1;
+  z-index: -1;
 }
