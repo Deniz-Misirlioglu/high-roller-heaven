@@ -223,3 +223,15 @@
 .selected-number-text {
   color: rgb(0, 0, 0);
 }
+
+.winning-number-text {
+  color: rgb(0, 0, 0); /* Example color for Winning Number */
+}
+
+.winning-color-text {
+  color: rgb(0, 0, 0); /* Example color for Winning Color */
+}
+
+.winnings-text {
+  color: rgb(0, 0, 0); /* Example color for Winnings */
+}

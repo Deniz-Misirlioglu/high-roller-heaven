@@ -376,9 +376,13 @@ const Roulette = () => {
                     className={`winning-info ${winningInfo.color}`}
                     style={winningInfoStyle}
                   >
-                    <p>Winning Number: {winningInfo.number}</p>
-                    <p>Winning Color: {winningInfo.color}</p>
-                    <p>Winnings: ${currentWin}</p>
+                    <p className="winning-number-text">
+                      Winning Number: {winningInfo.number}
+                    </p>
+                    <p className="winning-color-text">
+                      Winning Color: {winningInfo.color}
+                    </p>
+                    <p className="winnings-text">Winnings: ${currentWin}</p>
                   </div>
                 )}
 
