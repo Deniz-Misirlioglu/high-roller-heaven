@@ -215,3 +215,11 @@
   color: #333;
   z-index: 1000;
 }
+
+.selected-color-text {
+  color: rgb(0, 0, 0);
+}
+
+.selected-number-text {
+  color: rgb(0, 0, 0);
+}

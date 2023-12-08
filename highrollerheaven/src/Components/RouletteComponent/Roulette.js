@@ -294,7 +294,9 @@ const Roulette = () => {
                     Black
                   </button>
                 </div>
-                <p>Selected Color: {selectedColor}</p>
+                <p className="selected-color-text">
+                  Selected Color: {selectedColor}
+                </p>
                 <div className="bet-size-selector-color">
                   <div className="bet-button-group">
                     <button onClick={() => changeColorBetSize(-10)}>-10</button>
@@ -331,7 +333,9 @@ const Roulette = () => {
                   onChange={handleNumberChange}
                   className="number-input"
                 />
-                <p>Selected Number: {selectedNumber}</p>
+                <p className="selected-number-text">
+                  Selected Number: {selectedNumber}
+                </p>
                 <div className="bet-size-selector-number">
                   <div className="bet-button-group">
                     <button onClick={() => changeNumberBetSize(-10)}>
