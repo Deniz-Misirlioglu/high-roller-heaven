@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 mongoose.connect(
-  "mongodb+srv://admin:37iEoI0TMw6KTHDx@hhh-customers.gjh7k42.mongodb.net/Customers?retryWrites=true&w=majority"
+  "API HERE"
 );
 //GET CUSTOMERS
 app.get("/getCustomers", (req, res) => {
